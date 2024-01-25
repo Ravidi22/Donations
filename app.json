@@ -15,16 +15,27 @@
       "**/*"
     ],
     "ios": {
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBDWK0VW9Zoe5WJcLMgdLWrtr1q4QcL3iU"
+        }
+      },
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBDWK0VW9Zoe5WJcLMgdLWrtr1q4QcL3iU"
+        }
+      },
+      "package": "com.anonymous.Donations"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    } 
   }
 }

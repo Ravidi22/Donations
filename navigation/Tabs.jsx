@@ -8,7 +8,6 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
 // Tabs
 import PersonalDetailsTab from "./screens/PersonalDetailsTab";
-import MoneyTab from "./screens/MoneyTab";
 import RouteTab from "./screens/RouteDetailsTab";
 import SelfPositionTab from "./screens/SelfPositionTab";
 
@@ -37,17 +36,7 @@ const Tabs = () => {
               <MaterialIcons name="map" color={color} size={size} />
             ),
           }}
-        />
-        <Tab.Screen
-          name="Money"
-          component={MoneyTab}
-          options={{
-            tabBarLabel: "Money",
-            tabBarIcon: ({ color, size }) => (
-              <MaterialIcons name="monetization_on" color={color} size={size} />
-            ),
-          }}
-        />
+        />    
         <Tab.Screen
           name="Personal"
           component={PersonalDetailsTab}
