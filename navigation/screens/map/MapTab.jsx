@@ -1,22 +1,19 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import MapView from 'react-native-maps';
+import MapContainer from './sections/MapContainer';
 
-const SelfPositionTab = () => {
+const MapTab = () => {
   return (
     <View style={styles.container}>
-      <MapView style={styles.map} />
+      <MapContainer/>
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  map: {
-    width: '100%',
-    height: '100%',
-  },
 });
 
-export default SelfPositionTab;
+export default MapTab;

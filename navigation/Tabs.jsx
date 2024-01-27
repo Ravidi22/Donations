@@ -5,43 +5,43 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 //Icons
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-
+import RouteIcon from "../assets/Icons/routeIcon";
 // Tabs
-import PersonalDetailsTab from "./screens/PersonalDetailsTab";
-import RouteTab from "./screens/RouteDetailsTab";
-import SelfPositionTab from "./screens/SelfPositionTab";
+import PersonalDetailsTab from "./screens/personal-details/PersonalTab";
+import RouteTab from "./screens/route/RouteTab";
+import MapTab from "./screens/map/MapTab";
 
 const Tab = createBottomTabNavigator();
 
 const Tabs = () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator>
+      <Tab.Navigator initialRouteName="מפה">
         <Tab.Screen
-          name="Route Details"
+          name="נתיב"
           component={RouteTab}
           options={{
-            tabBarLabel: "Route Details",
+            tabBarLabel: "נתיב",
             tabBarIcon: ({ color, size }) => (
-              <MaterialIcons name="route" color={color} size={size} />
+              <RouteIcon name="map" color={color} size={size} />
             ),
           }}
         />
         <Tab.Screen
-          name="Self Position"
-          component={SelfPositionTab}
+          name="מפה"
+          component={MapTab}
           options={{
-            tabBarLabel: "Self Position",
+            tabBarLabel: "מפה",
             tabBarIcon: ({ color, size }) => (
               <MaterialIcons name="map" color={color} size={size} />
             ),
           }}
         />    
         <Tab.Screen
-          name="Personal"
+          name="אישי"
           component={PersonalDetailsTab}
           options={{
-            tabBarLabel: "Personal",
+            tabBarLabel: "אישי",
             tabBarIcon: ({ color, size }) => (
               <Ionicons
                 name="person-circle-outline"
