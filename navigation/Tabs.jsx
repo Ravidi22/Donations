@@ -1,11 +1,11 @@
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 //Icons
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import RouteIcon from "../assets/Icons/routeIcon";
+
 // Tabs
 import PersonalDetailsTab from "./screens/personal-details/PersonalTab";
 import RouteTab from "./screens/route/RouteTab";
@@ -15,7 +15,7 @@ const Tab = createBottomTabNavigator();
 
 const Tabs = () => {
   return (
-    <NavigationContainer>
+    
       <Tab.Navigator initialRouteName="מפה">
         <Tab.Screen
           name="נתיב"
@@ -23,7 +23,7 @@ const Tabs = () => {
           options={{
             tabBarLabel: "נתיב",
             tabBarIcon: ({ color, size }) => (
-              <RouteIcon name="map" color={color} size={size} />
+              <RouteIcon color={color} size={size} />
             ),
           }}
         />
@@ -52,7 +52,6 @@ const Tabs = () => {
           }}
         />
       </Tab.Navigator>
-    </NavigationContainer>
   );
 };
 
