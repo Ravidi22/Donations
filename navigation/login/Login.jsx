@@ -1,17 +1,15 @@
 import React, { useState } from "react";
 import {
   View,
-  Text,
   Button,
   StyleSheet,
   ScrollView,
   KeyboardAvoidingView,
   Platform,
-  TouchableOpacity,
 } from "react-native";
 import { isValidID, IsValidOrganizationPassword } from "./Validation";
-import ToggleButtonGroup from "../../component/ToggeleButtonGroup";
-import { TextInput, TextInputWithIcon } from "../../component/TextInput";
+import ToggleButtonGroup from "../../component/Basic/ToggeleButtonGroup";
+import { TextInput, TextInputWithIcon } from "../../component/Basic/TextInput";
 
 const LoginScreen = ({ navigation }) => {
   const [userId, setUserId] = useState("");

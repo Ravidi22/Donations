@@ -51,10 +51,10 @@ const MapContainer = () => {
     };
   }, []);
 
-  const [addAdressModal, setModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
-  const handleAddPress = () => {
-    setModalVisible(!addAdressModal);
+  const handlePress = () => {
+    setModalVisible(!modalVisible);
   };
 
   return (
@@ -63,10 +63,10 @@ const MapContainer = () => {
         ref={mapRef}
         style={styles.map}
         provider="google"
-        initialRegion={location}
+        initialRegion={location} // Set the initial region to the user's location
         showsUserLocation={true}
       />
-      <TouchableOpacity style={styles.addButton} onPress={handleAddPress}>
+      <TouchableOpacity style={styles.addButton} onPress={handlePress}>
         <Ionicons name="add-circle" size={50} color="#6a96bc" />
       </TouchableOpacity>
 
@@ -75,14 +75,14 @@ const MapContainer = () => {
         transparent={false}
         visible={modalVisible}
         onRequestClose={() => {
-          setModalVisible(!addAdressModal);
+          setModalVisible(!modalVisible);
         }}
       >
         <View style={styles.modalView}>
           <Text style={styles.modalText}>This is the modal content</Text>
           <Button
             title="Close"
-            onPress={() => setModalVisible(!addAdressModal)}
+            onPress={() => setModalVisible(!modalVisible)}
           />
         </View>
       </Modal>
