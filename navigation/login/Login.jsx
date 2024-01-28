@@ -1,69 +1,82 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet , ScrollView, KeyboardAvoidingView , Platform } from 'react-native';
-import { isValidID , IsValidOrganizationPassword} from './Validation';
-import ToggleButtonGroup from '../../component/ToggeleButtonGroup'
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableOpacity,
+} from "react-native";
+import { isValidID, IsValidOrganizationPassword } from "./Validation";
+import ToggleButtonGroup from "../../component/ToggeleButtonGroup";
+import { TextInput, TextInputWithIcon } from "../../component/TextInput";
 
 const LoginScreen = ({ navigation }) => {
+  const [userId, setUserId] = useState("");
+  const [partnerId, setPartnerId] = useState("");
+  const [organizationPassword, setOrganizationPassword] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
-  const [userId, setUserId] = useState('');
-  const [partnerId, setPartnerId] = useState('');
-  const [organizationPassword, setOrganizationPassword] = useState('');
-
-  const [loginOption, setLoginOption] = useState('לבד');
+  const [loginOption, setLoginOption] = useState("לבד");
 
   const handleLogin = () => {
-    if(isValidID(userId) || isValidID(partnerId) || IsValidOrganizationPassword(organizationPassword))
-    {
-          navigation.replace('Home');
+    if (
+      isValidID(userId) ||
+      isValidID(partnerId) ||
+      IsValidOrganizationPassword(organizationPassword)
+    ) {
     }
+    navigation.replace("Home");
   };
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"}>
-    <ScrollView contentContainerStyle={styles.contentContainer}>
-      <View style={{ padding: 20 }}>
-        <ToggleButtonGroup
-          options={['לבד', 'עם שותף']}
-          value={loginOption}
-          onChange={setLoginOption}
-        />
-      </View>
-      <View style={styles.inputGroup}>
-        <Text style={styles.label}>תעודת זהות</Text>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
+      <ScrollView contentContainerStyle={styles.contentContainer}>
+        <View style={{ padding: 20 }}>
+          <ToggleButtonGroup
+            options={["לבד", "עם שותף"]}
+            value={loginOption}
+            onChange={setLoginOption}
+          />
+        </View>
         <TextInput
-          style={styles.input}
-          keyboardType='numeric'
-          placeholder='הכנס ת"ז'
-          maxLength={9}
+          label={"תעודת זהות"}
           value={userId}
           onChangeText={setUserId}
-        />
-      </View>
-
-      {loginOption != "לבד" && <View style={styles.inputGroup}>
-        <Text style={styles.label}>תעודת זהות של השותף (אופציונלי)</Text>
-        <TextInput
-          style={styles.input}
-          keyboardType='numeric'
+          placeholder='הכנס ת"ז'
+          keyboardType="numeric"
           maxLength={9}
-          placeholder='הכנס ת"ז שותף'
-          value={partnerId}
-          onChangeText={setPartnerId}
         />
-      </View>}
+        {loginOption != "לבד" && (
+          <TextInput
+            label={"תעודת זהות של השותף (אופציונלי)"}
+            value={partnerId}
+            onChangeText={setPartnerId}
+            placeholder='הכנס ת"ז שותף'
+            keyboardType="numeric"
+            maxLength={9}
+          />
+        )}
 
-      <View style={styles.inputGroup}>
-        <Text style={styles.label}>סיסמת הארגון</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="הכנס סיסמת ארגון"
-          secureTextEntry
+        <TextInputWithIcon
+          label={"סיסמת הארגון"}
           value={organizationPassword}
           onChangeText={setOrganizationPassword}
+          placeholder="הכנס סיסמת ארגון"
+          secureTextEntry={!passwordVisible}
+          toggleVisibility={() => setPasswordVisible(!passwordVisible)}
+          Icon={passwordVisible ? "eye-outline" : "eye-off-outline"}
+          iconSize={20}
+          iconColor={"black"}
         />
-      </View>
-      <Button title="התחברות" onPress={handleLogin} />
-    </ScrollView>
+
+        <Button title="התחברות" onPress={handleLogin} />
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 };
@@ -71,44 +84,13 @@ const LoginScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 30,
+    padding: 10,
   },
   contentContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  logo: {
-    width: 100, 
-    height: 100, 
-    resizeMode: 'contain',
-    marginBottom: 10,
-  },
-  inputGroup: {
-    width: '100%',
-    marginBottom: 5,
-  },
-  label: {
-    marginBottom: 5,
-    fontWeight: 'bold',
-    textAlign: 'right',
-  },
-  errorInput: {
-    borderColor: 'red',
-  },
-  errorText: {
-    color: 'red',
-    textAlign: 'right',
-    fontSize: 12,
-    marginTop: 5,
-  },
-  input: {
-    width: '100%',
-    marginVertical: 10,
-    padding: 15,
-    borderWidth: 1,
-    borderColor: 'gray',
-    borderRadius: 5,
-    textAlign:'right'
+    flexGrow: 1,
+    alignItems: "stretch",
+    justifyContent: "center",
+    padding: 10,
   },
 });
 
