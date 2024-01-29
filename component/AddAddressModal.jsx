@@ -1,4 +1,5 @@
-import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
+import { Button } from "./Basic/Button";
 
 export const AddAddressModal = ({ modalVisible, setModalVisible }) => {
   return (
