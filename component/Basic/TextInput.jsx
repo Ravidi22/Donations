@@ -37,7 +37,7 @@ export const TextInputWithIcon = ({
   onChangeText,
   placeholder,
   secureTextEntry,
-  toggleVisibility,
+  onPress,
   label,
   Icon,
   iconSize,
@@ -54,7 +54,7 @@ export const TextInputWithIcon = ({
           value={value}
           onChangeText={onChangeText}
         />
-        <TouchableOpacity onPress={toggleVisibility} style={styles.icon}>
+        <TouchableOpacity onPress={onPress} style={styles.icon}>
           <Ionicons
             name={Icon}
             color={iconColor || "black"}

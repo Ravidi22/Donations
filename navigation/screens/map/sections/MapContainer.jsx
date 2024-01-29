@@ -1,14 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import {
-  Button,
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  Modal,
-  Text,
-} from "react-native";
+import { StyleSheet, View, Modal, Text } from "react-native";
 import MapView from "react-native-maps";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import { Button } from "../../../../component/Basic/Button";
+
 import * as Location from "expo-location";
 
 const MapContainer = () => {
@@ -66,9 +60,9 @@ const MapContainer = () => {
         initialRegion={location} // Set the initial region to the user's location
         showsUserLocation={true}
       />
-      <TouchableOpacity style={styles.addButton} onPress={handlePress}>
-        <Ionicons name="add-circle" size={50} color="#6a96bc" />
-      </TouchableOpacity>
+      <View style={{ position: "absolute", right: 20, bottom: 20 }}>
+        <Button label={"הוספת כתובת"} handlePress={handlePress} />
+      </View>
 
       <Modal
         animationType="slide"
@@ -81,8 +75,8 @@ const MapContainer = () => {
         <View style={styles.modalView}>
           <Text style={styles.modalText}>This is the modal content</Text>
           <Button
-            title="Close"
-            onPress={() => setModalVisible(!modalVisible)}
+            label="Close"
+            handlePress={() => setModalVisible(!modalVisible)}
           />
         </View>
       </Modal>
@@ -97,25 +91,6 @@ const styles = StyleSheet.create({
   map: {
     width: "100%",
     height: "100%",
-  },
-  addButton: {
-    position: "absolute",
-    right: 20,
-    bottom: 20,
-    width: 50,
-    height: 50,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 25,
-  },
-  modalView: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: "center",
   },
 });
 

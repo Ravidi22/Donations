@@ -1,14 +1,13 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import React from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
-const Alert = ({ message, visible, onClose }) => {
-  if (!visible) return null;
-
+const Alert = ({ message, onClose }) => {
   return (
     <View style={styles.alertContainer}>
       <Text style={styles.alertText}>{message}</Text>
       <TouchableOpacity style={styles.closeButton} onPress={onClose}>
-        <Text>X</Text> {/* You can replace this with an icon */}
+        <Ionicons name={"close-circle-outline"} color={"white"} size={20} />
       </TouchableOpacity>
     </View>
   );
@@ -16,22 +15,26 @@ const Alert = ({ message, visible, onClose }) => {
 
 const styles = StyleSheet.create({
   alertContainer: {
-    backgroundColor: '#f44336', // Red background for error, change as needed
+    width: "100%",
+    position: "absolute",
+    top: 0,
+    backgroundColor: "#f44336",
     padding: 15,
-    borderRadius: 5,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 10,
+    transform: "slide",
+    borderRadius: 10,
+    flexDirection: "row-reverse",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   alertText: {
-    color: 'white',
-    flex: 1, // To ensure text takes up the majority of the alert container
+    textAlign: "right",
+    color: "white",
+    flex: 1,
   },
   closeButton: {
     marginLeft: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 

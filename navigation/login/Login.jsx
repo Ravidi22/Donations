@@ -1,32 +1,47 @@
 import React, { useState } from "react";
 import {
-  View,
-  Button,
   StyleSheet,
   ScrollView,
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
-import { isValidID, IsValidOrganizationPassword } from "./Validation";
-import ToggleButtonGroup from "../../component/Basic/ToggeleButtonGroup";
 import { TextInput, TextInputWithIcon } from "../../component/Basic/TextInput";
+import { Button } from "../../component/Basic/Button";
+import Alert from "../../component/Basic/Alert";
 
 const LoginScreen = ({ navigation }) => {
   const [userId, setUserId] = useState("");
-  const [partnerId, setPartnerId] = useState("");
+  const [partnerIds, setPartnerIds] = useState([]);
+
   const [organizationPassword, setOrganizationPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
 
-  const [loginOption, setLoginOption] = useState("לבד");
+  const [showAlert, setShowAlert] = useState(false);
 
   const handleLogin = () => {
-    if (
-      isValidID(userId) ||
-      isValidID(partnerId) ||
-      IsValidOrganizationPassword(organizationPassword)
-    ) {
+    if (true) {
+      navigation.replace("Home");
+    } else {
+      setShowAlert(true);
+      setTimeout(() => setShowAlert(false), 1000);
     }
-    navigation.replace("Home");
+  };
+
+  const addPartnerIdInput = () => {
+    if (partnerIds.length < 2) {
+      setPartnerIds([...partnerIds, ""]);
+    }
+  };
+
+  const updatePartnerId = (index, value) => {
+    const updatedIds = [...partnerIds];
+    updatedIds[index] = value;
+    setPartnerIds(updatedIds);
+  };
+
+  const removePartnerIdInput = (index) => {
+    const updatedIds = partnerIds.filter((_, idx) => idx !== index);
+    setPartnerIds(updatedIds);
   };
 
   return (
@@ -35,13 +50,8 @@ const LoginScreen = ({ navigation }) => {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <ScrollView contentContainerStyle={styles.contentContainer}>
-        <View style={{ padding: 20 }}>
-          <ToggleButtonGroup
-            options={["לבד", "עם שותף"]}
-            value={loginOption}
-            onChange={setLoginOption}
-          />
-        </View>
+        {showAlert && <Alert message={"התחברות נכשלה"} />}
+
         <TextInput
           label={"תעודת זהות"}
           value={userId}
@@ -50,16 +60,23 @@ const LoginScreen = ({ navigation }) => {
           keyboardType="numeric"
           maxLength={9}
         />
-        {loginOption != "לבד" && (
-          <TextInput
-            label={"תעודת זהות של השותף (אופציונלי)"}
+
+        {partnerIds.map((partnerId, index) => (
+          <TextInputWithIcon
+            key={index}
+            label={`מזהה שותף ${index + 1}`}
             value={partnerId}
-            onChangeText={setPartnerId}
-            placeholder='הכנס ת"ז שותף'
+            onChangeText={(text) => updatePartnerId(index, text)}
+            placeholder="הכנס מזהה שותף"
             keyboardType="numeric"
             maxLength={9}
+            Icon={"close-circle-outline"}
+            iconColor={"red"}
+            onPress={() => removePartnerIdInput(index)}
           />
-        )}
+        ))}
+
+        <Button label="הוסף שותף" handlePress={addPartnerIdInput} />
 
         <TextInputWithIcon
           label={"סיסמת הארגון"}
@@ -67,13 +84,12 @@ const LoginScreen = ({ navigation }) => {
           onChangeText={setOrganizationPassword}
           placeholder="הכנס סיסמת ארגון"
           secureTextEntry={!passwordVisible}
-          toggleVisibility={() => setPasswordVisible(!passwordVisible)}
+          onPress={() => setPasswordVisible(!passwordVisible)}
           Icon={passwordVisible ? "eye-outline" : "eye-off-outline"}
-          iconSize={20}
           iconColor={"black"}
         />
 
-        <Button title="התחברות" onPress={handleLogin} />
+        <Button label="התחברות" handlePress={handleLogin} />
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -82,11 +98,12 @@ const LoginScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#EFF0F8",
     padding: 10,
   },
   contentContainer: {
     flexGrow: 1,
-    alignItems: "stretch",
+    alignItems: "center",
     justifyContent: "center",
     padding: 10,
   },
