@@ -1,6 +1,6 @@
 import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 
-export const Button = ({ label, handlePress, style }) => {
+const Button = ({ label, handlePress, style }) => {
   return (
     <View style={styles.buttonContainer}>
       <TouchableOpacity style={style || styles.button} onPress={handlePress}>
@@ -32,3 +32,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
+export default Button;

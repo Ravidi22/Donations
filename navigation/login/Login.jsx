@@ -6,7 +6,7 @@ import {
   Platform,
 } from "react-native";
 import { TextInput, TextInputWithIcon } from "../../component/Basic/TextInput";
-import { Button } from "../../component/Basic/Button";
+import Button from "../../component/Basic/Button";
 import Alert from "../../component/Basic/Alert";
 
 const LoginScreen = ({ navigation }) => {

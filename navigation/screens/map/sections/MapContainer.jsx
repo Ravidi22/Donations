@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
-import { StyleSheet, View, Modal, Text } from "react-native";
+import { StyleSheet, View } from "react-native";
 import MapView from "react-native-maps";
-import { Button } from "../../../../component/Basic/Button";
+import Button from "../../../../component/Basic/Button";
+import { AddAddressModal } from "../../../../component/AddAddressModal";
 
 import * as Location from "expo-location";
+import ZoomInOut from "../../../../component/map/ZoomInOut";
 
 const MapContainer = () => {
   const mapRef = useRef(null);
@@ -47,8 +49,8 @@ const MapContainer = () => {
 
   const [modalVisible, setModalVisible] = useState(false);
 
-  const handlePress = () => {
-    setModalVisible(!modalVisible);
+  const OpenModal = () => {
+    setModalVisible(true);
   };
 
   return (
@@ -57,29 +59,17 @@ const MapContainer = () => {
         ref={mapRef}
         style={styles.map}
         provider="google"
-        initialRegion={location} // Set the initial region to the user's location
+        initialRegion={location}
         showsUserLocation={true}
       />
+
       <View style={{ position: "absolute", right: 20, bottom: 20 }}>
-        <Button label={"הוספת כתובת"} handlePress={handlePress} />
+        <Button label={"הוספת כתובת"} handlePress={OpenModal} />
       </View>
 
-      <Modal
-        animationType="slide"
-        transparent={false}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <View style={styles.modalView}>
-          <Text style={styles.modalText}>This is the modal content</Text>
-          <Button
-            label="Close"
-            handlePress={() => setModalVisible(!modalVisible)}
-          />
-        </View>
-      </Modal>
+      <ZoomInOut mapRef={mapRef} />
+
+      <AddAddressModal isOpen={modalVisible} setIsOpen={setModalVisible} />
     </View>
   );
 };

@@ -1,10 +1,11 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
+import Avatar from "../../../component/Basic/Avatar";
 
 const PersonalDetailsTab = () => {
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Personal Details Tab</Text>
+    <View style={styles.container}>
+      <Avatar image={require("../../../assets/personal.png")} size={100} />
     </View>
   );
 };
@@ -12,7 +13,10 @@ const PersonalDetailsTab = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: "#EFF0F8",
   },
 });
+
 export default PersonalDetailsTab;
