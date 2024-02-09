@@ -1,11 +1,20 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import Avatar from "../../../component/Basic/Avatar";
+import { Avatar } from "@rneui/themed";
 
 const PersonalDetailsTab = () => {
   return (
     <View style={styles.container}>
-      <Avatar image={require("../../../assets/personal.png")} size={100} />
+      <Avatar
+        size={64}
+        rounded
+        icon={{
+          name: "settings",
+          type: "material",
+          color: "black",
+        }}
+        containerStyle={{ backgroundColor: "#6733b9" }}
+      />
     </View>
   );
 };

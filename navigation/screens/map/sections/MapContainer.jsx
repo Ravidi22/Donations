@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { StyleSheet, View } from "react-native";
 import MapView from "react-native-maps";
-import Button from "../../../../component/Basic/Button";
+import { Button } from "@rneui/themed";
 import { AddAddressModal } from "../../../../component/AddAddressModal";
 
 import * as Location from "expo-location";
@@ -63,9 +63,24 @@ const MapContainer = () => {
         showsUserLocation={true}
       />
 
-      <View style={{ position: "absolute", right: 20, bottom: 20 }}>
-        <Button label={"הוספת כתובת"} handlePress={OpenModal} />
-      </View>
+      <Button
+        title="הוסף כתובת"
+        icon={{
+          name: "map-marker",
+          type: "font-awesome",
+          size: 15,
+          color: "white",
+        }}
+        iconContainerStyle={{ padding: 5 }}
+        buttonStyle={styles.buttonStyle}
+        containerStyle={{
+          position: "absolute",
+          right: 20,
+          bottom: 20,
+        }}
+        onPress={OpenModal}
+        titleStyle={{ fontWeight: "bold" }}
+      />
 
       <ZoomInOut mapRef={mapRef} />
 
@@ -81,6 +96,13 @@ const styles = StyleSheet.create({
   map: {
     width: "100%",
     height: "100%",
+  },
+  buttonStyle: {
+    backgroundColor: "rgba(90, 154, 230, 1)",
+    borderWidth: 2,
+    padding: 10,
+    borderColor: "white",
+    borderRadius: 30,
   },
 });
 

@@ -6,7 +6,7 @@ import {
   Platform,
 } from "react-native";
 import { TextInput, TextInputWithIcon } from "../../component/Basic/TextInput";
-import Button from "../../component/Basic/Button";
+import { Button } from "@rneui/themed";
 import Alert from "../../component/Basic/Alert";
 
 const LoginScreen = ({ navigation }) => {
@@ -76,7 +76,17 @@ const LoginScreen = ({ navigation }) => {
           />
         ))}
 
-        <Button label="הוסף שותף" handlePress={addPartnerIdInput} />
+        <Button
+          title="הוסף שותף"
+          buttonStyle={styles.buttonStyle}
+          containerStyle={{
+            width: 200,
+            marginHorizontal: 50,
+            marginVertical: 10,
+          }}
+          onPress={addPartnerIdInput}
+          titleStyle={{ fontWeight: "bold" }}
+        />
 
         <TextInputWithIcon
           label={"סיסמת הארגון"}
@@ -89,7 +99,17 @@ const LoginScreen = ({ navigation }) => {
           iconColor={"black"}
         />
 
-        <Button label="התחברות" handlePress={handleLogin} />
+        <Button
+          title="התחברות"
+          buttonStyle={styles.buttonStyle}
+          containerStyle={{
+            width: 200,
+            marginHorizontal: 50,
+            marginVertical: 10,
+          }}
+          onPress={handleLogin}
+          titleStyle={{ fontWeight: "bold" }}
+        />
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -106,6 +126,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     padding: 10,
+  },
+  buttonStyle: {
+    backgroundColor: "rgba(90, 154, 230, 1)",
+    borderWidth: 2,
+    borderColor: "white",
+    borderRadius: 30,
   },
 });
 
