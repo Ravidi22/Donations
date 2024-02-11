@@ -43,25 +43,8 @@ const LoginScreen = ({ navigation }) => {
     const updatedIds = partnerIds.filter((_, idx) => idx !== index);
     setPartnerIds(updatedIds);
   };
-
-  return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-    >
-      <ScrollView contentContainerStyle={styles.contentContainer}>
-        {showAlert && <Alert message={"התחברות נכשלה"} />}
-
-        <TextInput
-          label={"תעודת זהות"}
-          value={userId}
-          onChangeText={setUserId}
-          placeholder='הכנס ת"ז'
-          keyboardType="numeric"
-          maxLength={9}
-        />
-
-        {partnerIds.map((partnerId, index) => (
+  {
+    /* {partnerIds.map((partnerId, index) => (
           <TextInputWithIcon
             key={index}
             label={`מזהה שותף ${index + 1}`}
@@ -86,6 +69,23 @@ const LoginScreen = ({ navigation }) => {
           }}
           onPress={addPartnerIdInput}
           titleStyle={{ fontWeight: "bold" }}
+        /> */
+  }
+  return (
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
+      <ScrollView contentContainerStyle={styles.contentContainer}>
+        {showAlert && <Alert message={"התחברות נכשלה"} />}
+
+        <TextInput
+          label={"תעודת זהות"}
+          value={userId}
+          onChangeText={setUserId}
+          placeholder='הכנס ת"ז'
+          keyboardType="numeric"
+          maxLength={9}
         />
 
         <TextInputWithIcon

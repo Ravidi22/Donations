@@ -40,8 +40,8 @@ const styles = StyleSheet.create({
   zoomControl: {
     position: "absolute",
     right: 20,
-    top: 60,
-    backgroundColor: "#EFF0F8",
+    top: 120,
+    backgroundColor: "rgb(239, 240, 248, 0.6)",
     borderRadius: 15,
     alignItems: "center",
     justifyContent: "center",
