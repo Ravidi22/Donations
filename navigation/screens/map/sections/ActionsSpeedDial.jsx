@@ -10,7 +10,7 @@ export default ActionsSpeedDial = () => {
       openIcon={{ name: "close", color: "#fff" }}
       onOpen={() => setOpen(!open)}
       onClose={() => setOpen(!open)}
-      style={{ position: "absolute", bottom: 150 }}
+      style={{ position: "absolute", bottom: 120 }}
     >
       <SpeedDial.Action
         icon={{ name: "add", color: "#fff" }}

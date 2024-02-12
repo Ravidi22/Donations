@@ -11,6 +11,8 @@ const MapContainer = () => {
 
   const { location, errorMsg } = useLocationWatcher(mapRef);
 
+  const [bottomSheetHeight, setBottomSheetHeight] = useState(150);
+
   return (
     <View style={styles.container}>
       <MapView
@@ -22,8 +24,8 @@ const MapContainer = () => {
       />
       <ZoomInOut mapRef={mapRef} />
 
-      <ActionsSpeedDial />
-      <DraggableBottomSheet />
+      <ActionsSpeedDial bottomSheetHeight />
+      <DraggableBottomSheet onHeightChange={setBottomSheetHeight} />
     </View>
   );
 };

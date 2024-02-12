@@ -6,12 +6,12 @@ import Animated, {
   useAnimatedStyle,
   useAnimatedGestureHandler,
 } from "react-native-reanimated";
-import { Timeline } from "../../../../component/map/Timeline";
-
+import Timeline from "../../../../component/map/Timeline";
+import { LocationsList } from "./LocationsUtils";
 const screenHeight = Dimensions.get("window").height;
 
 export const DraggableBottomSheet = () => {
-  const height = useSharedValue(150);
+  const height = useSharedValue(120);
 
   const gestureHandler = useAnimatedGestureHandler({
     onStart: (_, context) => {
@@ -19,7 +19,7 @@ export const DraggableBottomSheet = () => {
     },
     onActive: (event, context) => {
       let newHeight = context.startHeight - event.translationY;
-      newHeight = Math.max(Math.min(newHeight, screenHeight * 0.9), 150);
+      newHeight = Math.max(Math.min(newHeight, screenHeight * 0.9), 120);
       height.value = newHeight;
     },
     onEnd: (_) => {},
@@ -34,17 +34,9 @@ export const DraggableBottomSheet = () => {
   return (
     <PanGestureHandler onGestureEvent={gestureHandler}>
       <Animated.View style={[styles.sheet, animatedStyle]}>
-        <View style={styles.dragItem} />
-        <View>
-          <Timeline
-            data={[
-              {
-                title: "Event 1",
-                description: "Description of event 1.",
-                iconComponent: <Text>📅</Text>,
-              },
-            ]}
-          />
+        <View style={{ width: "100%" }}>
+          <View style={styles.dragItem} />
+          <Timeline data={LocationsList} />
         </View>
       </Animated.View>
     </PanGestureHandler>
@@ -58,10 +50,9 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     backgroundColor: "white",
+    columnGap: 4,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    alignItems: "center",
-    justifyContent: "center",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -74,9 +65,9 @@ const styles = StyleSheet.create({
   dragItem: {
     width: 40,
     height: 5,
+    alignSelf: "center",
     backgroundColor: "#ccc",
     borderRadius: 5,
-    marginBottom: 10,
   },
 });
 

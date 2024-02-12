@@ -1,47 +1,64 @@
-// Timeline.js
-
 import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 
-const TimelineItem = ({ title, description, iconComponent }) => (
+const TimelineItem = ({ index, title, address }) => (
   <View style={styles.itemContainer}>
-    <View style={styles.iconContainer}>{iconComponent}</View>
-    <View style={styles.contentContainer}>
+    <View style={styles.indexContainer}>
+      <Text style={styles.indexText}>{index + 1}</Text>
+    </View>
+    <View style={styles.detailsContainer}>
       <Text style={styles.title}>{title}</Text>
-      <Text>{description}</Text>
+      <Text style={styles.address}>{address}</Text>
     </View>
   </View>
 );
 
 const Timeline = ({ data }) => (
-  <ScrollView contentContainerStyle={styles.container}>
+  <View style={styles.container}>
     {data.map((item, index) => (
       <TimelineItem
         key={index}
-        title={item.title}
-        description={item.description}
-        iconComponent={item.iconComponent}
+        index={index}
+        title={`${item.FirstName} ${item.LastName}`}
+        address={item.Address}
       />
     ))}
-  </ScrollView>
+  </View>
 );
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    padding: 30,
   },
   itemContainer: {
-    flexDirection: "row",
+    flexDirection: "row-reverse",
+    alignItems: "center",
     marginBottom: 20,
+    backgroundColor: "rgba(199,199,199, 0.1)",
+    borderRadius: 20,
+    padding: 20,
   },
-  iconContainer: {
-    marginRight: 10,
+  detailsContainer: {
+    display: "flex",
+    flexDirection: "column",
   },
-  contentContainer: {
-    flex: 1,
+  indexContainer: {
+    width: 40,
+    height: 40,
+    borderRadius: 25,
+    borderWidth: 2,
+    borderColor: "gray",
+    borderStyle: "dotted",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  indexText: {
+    fontWeight: "bold",
+    textAlign: "right",
   },
   title: {
     fontWeight: "bold",
+    textAlign: "right",
   },
 });
 
