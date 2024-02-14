@@ -1,29 +1,13 @@
 import React from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
-
-const TimelineItem = ({ index, title, address }) => (
-  <View style={styles.itemContainer}>
-    <View style={styles.indexContainer}>
-      <Text style={styles.indexText}>{index + 1}</Text>
-    </View>
-    <View style={styles.detailsContainer}>
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.address}>{address}</Text>
-    </View>
-  </View>
-);
+import { StyleSheet, ScrollView } from "react-native";
+import { TimelineItem } from "./TimelineItem";
 
 const Timeline = ({ data }) => (
-  <View style={styles.container}>
+  <ScrollView style={styles.container}>
     {data.map((item, index) => (
-      <TimelineItem
-        key={index}
-        index={index}
-        title={`${item.FirstName} ${item.LastName}`}
-        address={item.Address}
-      />
+      <TimelineItem key={index} index={index} address={item} />
     ))}
-  </View>
+  </ScrollView>
 );
 
 const styles = StyleSheet.create({
@@ -33,14 +17,7 @@ const styles = StyleSheet.create({
   itemContainer: {
     flexDirection: "row-reverse",
     alignItems: "center",
-    marginBottom: 20,
-    backgroundColor: "rgba(199,199,199, 0.1)",
-    borderRadius: 20,
-    padding: 20,
-  },
-  detailsContainer: {
-    display: "flex",
-    flexDirection: "column",
+    justifyContent: "space-between",
   },
   indexContainer: {
     width: 40,
@@ -51,10 +28,6 @@ const styles = StyleSheet.create({
     borderStyle: "dotted",
     justifyContent: "center",
     alignItems: "center",
-  },
-  indexText: {
-    fontWeight: "bold",
-    textAlign: "right",
   },
   title: {
     fontWeight: "bold",
