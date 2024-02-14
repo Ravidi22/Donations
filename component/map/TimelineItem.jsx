@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { Divider, Icon } from "@rneui/themed";
-import { TextInput } from "../Basic/TextInput";
+import { Icon } from "@rneui/themed";
+import AddressCard from "./AddressCard";
 
 export const TimelineItem = ({ index, address }) => {
-  const [userId, setUserId] = useState("");
-  const [remark, setRemark] = useState("");
-  const [visited, setVisited] = useState(false);
-
   const [collapsed, setCollapsed] = useState(true);
+
+  const [visited, setVisited] = useState(false);
 
   const [dateString, setDateString] = useState("");
   const [timeString, setTimeString] = useState("");
@@ -16,10 +14,19 @@ export const TimelineItem = ({ index, address }) => {
   const toggleCollapse = () => {
     if (collapsed) {
       const currentDate = new Date();
-      const newDateString = `${currentDate.getDate()}/${
-        currentDate.getMonth() + 1
-      }/${currentDate.getFullYear()}`;
-      const newTimeString = `${currentDate.getHours()}:${currentDate.getMinutes()}`;
+      const newDateString = `${currentDate
+        .getDate()
+        .toString()
+        .padStart(2, "0")}/${(currentDate.getMonth() + 1)
+        .toString()
+        .padStart(2, "0")}/${currentDate.getFullYear()}`;
+      const newTimeString = `${currentDate
+        .getHours()
+        .toString()
+        .padStart(2, "0")}:${currentDate
+        .getMinutes()
+        .toString()
+        .padStart(2, "0")}`;
       setDateString(newDateString);
       setTimeString(newTimeString);
     }
@@ -45,7 +52,7 @@ export const TimelineItem = ({ index, address }) => {
           <Text
             style={styles.title}
           >{`${address.FirstName} ${address.LastName}`}</Text>
-          <Text style={styles.address}>{address.Address}</Text>
+          <Text style={styles.subTitle}>{address.Address}</Text>
         </View>
         <Icon
           name={collapsed ? "chevron-down-sharp" : "chevron-up-sharp"}
@@ -55,53 +62,11 @@ export const TimelineItem = ({ index, address }) => {
       </View>
 
       {!collapsed && (
-        <View>
-          <Divider style={{ padding: 2 }} />
-          <View
-            style={{
-              padding: 10,
-            }}
-          >
-            <View
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                paddingBottom: 10,
-              }}
-            >
-              <Text>{timeString}</Text>
-              <Text>{dateString}</Text>
-            </View>
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "flex-end",
-                paddingVertical: 10,
-              }}
-            >
-              <Text>{address.AvgDonations}</Text>
-              <Text style={styles.title}>ממוצע תרומות:</Text>
-            </View>
-
-            <TextInput
-              label={"סכום תרומה"}
-              value={userId}
-              onChangeText={setUserId}
-              placeholder="הכנס סכום"
-              keyboardType="numeric"
-              maxLength={9}
-            />
-
-            <TextInput
-              label={"הערה"}
-              value={remark}
-              onChangeText={setRemark}
-              placeholder="הכנס הערה"
-              maxLength={9}
-            />
-          </View>
-        </View>
+        <AddressCard
+          address={address}
+          dateString={dateString}
+          timeString={timeString}
+        />
       )}
     </View>
   );
@@ -125,6 +90,9 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: "bold",
-    textAlign: "right",
+    textAlign: "center",
+  },
+  subTitle: {
+    textAlign: "center",
   },
 });

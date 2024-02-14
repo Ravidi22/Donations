@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import MapContainer from "./screens/map/sections/MapContainer";
+
 const MainScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>

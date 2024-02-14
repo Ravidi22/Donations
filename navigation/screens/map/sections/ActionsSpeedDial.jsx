@@ -3,24 +3,37 @@ import { SpeedDial } from "@rneui/themed";
 
 export default ActionsSpeedDial = () => {
   const [open, setOpen] = useState(false);
+
   return (
     <SpeedDial
       isOpen={open}
+      buttonStyle={{
+        backgroundColor: "rgba(90, 154, 230, 1)",
+      }}
       icon={{ name: "edit", color: "#fff" }}
       openIcon={{ name: "close", color: "#fff" }}
       onOpen={() => setOpen(!open)}
       onClose={() => setOpen(!open)}
-      style={{ position: "absolute", bottom: 120 }}
+      style={{
+        position: "absolute",
+        bottom: 150,
+      }}
     >
       <SpeedDial.Action
-        icon={{ name: "add", color: "#fff" }}
-        title="Add"
-        onPress={() => console.log("Add Something")}
+        icon={{ name: "settings", color: "#fff" }}
+        buttonStyle={{
+          backgroundColor: "rgba(90, 154, 230, 1)",
+        }}
+        title="הגדרות"
+        onPress={() => console.log("Delete Something")}
       />
       <SpeedDial.Action
-        icon={{ name: "delete", color: "#fff" }}
-        title="Delete"
-        onPress={() => console.log("Delete Something")}
+        icon={{ name: "add", color: "#fff" }}
+        buttonStyle={{
+          backgroundColor: "rgba(90, 154, 230, 1)",
+        }}
+        title="הוסף כתובת"
+        onPress={() => console.log("Add Something")}
       />
     </SpeedDial>
   );

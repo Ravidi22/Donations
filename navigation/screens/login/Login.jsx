@@ -5,9 +5,12 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
-import { TextInput, TextInputWithIcon } from "../../component/Basic/TextInput";
+import {
+  TextInput,
+  TextInputWithIcon,
+} from "../../../component/Basic/TextInput";
 import { Button } from "@rneui/themed";
-import Alert from "../../component/Basic/Alert";
+import Alert from "../../../component/Basic/Alert";
 
 const LoginScreen = ({ navigation }) => {
   const [userId, setUserId] = useState("");

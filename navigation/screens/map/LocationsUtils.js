@@ -5,6 +5,7 @@ export const LocationsList = [
     Address: "האלמוגים 24",
     AvgDonations: 100,
     Floor: 0,
+    Apartment: 1,
     Remark: "שער סגור לבוא מסביב",
   },
   {
@@ -13,6 +14,7 @@ export const LocationsList = [
     Address: "רוטשילד 10",
     AvgDonations: 600,
     Floor: 2,
+    Apartment: 4,
     Remark: "בינה 4, דלת אחורית",
   },
   {
@@ -21,6 +23,7 @@ export const LocationsList = [
     Address: "הנביאים 5",
     AvgDonations: 200,
     Floor: 3,
+    Apartment: 12,
     Remark: "קוד לדלת 1234",
   },
   {
@@ -29,6 +32,7 @@ export const LocationsList = [
     Address: "בן גוריון 7",
     AvgDonations: 60,
     Floor: 1,
+    Apartment: 4,
     Remark: "להשאיר מתחת לשטיח",
   },
   {
@@ -37,6 +41,7 @@ export const LocationsList = [
     Address: "הברזל 34",
     AvgDonations: 53,
     Floor: 4,
+    Apartment: 19,
     Remark: "לצלצל פעמיים",
   },
 ];
