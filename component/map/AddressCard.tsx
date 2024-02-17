@@ -7,8 +7,12 @@ import TimeView, { TimeProps } from "./TimeAndDate";
 import {
   Building,
   LocationType,
+  PrivateHouse,
   Synagogue,
 } from "../../navigation/screens/map/LocationsUtils";
+import SynagogueDetails from "./address/SynagogueDetails";
+import BuildingDetails from "./address/BuildingDetails";
+import PrivateHouseDetails from "./address/PrivateHouseDetails";
 
 interface AddressCardProps extends TimeProps {
   address: LocationType;
@@ -34,6 +38,10 @@ const AddressCard = (props: AddressCardProps) => {
   function isBuilding(address: LocationType): address is Building {
     return "floor" in address && "apartment" in address;
   }
+
+  function isPrivateHouse(address: LocationType): address is PrivateHouse {
+    return "entrance" in address;
+  }
   const [userId, setUserId] = useState("");
   const [remark, setRemark] = useState("");
 
@@ -41,7 +49,7 @@ const AddressCard = (props: AddressCardProps) => {
     <View>
       <Divider style={{ padding: 2 }} />
       <View style={{ padding: 10 }}>
-        <TimeView dateString={props.dateString} timeString={props.timeString} />
+        <TimeView date={props.date} time={props.time} />
         <ButtonGroup
           buttons={["בית כנסת", "בניין", "קרקע"]}
           selectedIndex={selectedIndex}
@@ -49,22 +57,16 @@ const AddressCard = (props: AddressCardProps) => {
           containerStyle={{ marginBottom: 20, borderRadius: 20 }}
         />
         {selectedIndex === 0 && isSynagogue(props.address) && (
-          <View
-            style={{
-              flexDirection: "column",
-              alignItems: "flex-end",
-            }}
-          >
-            <Text>{`שחרית: ${props.address.prayers.morning}`}</Text>
-            <Text>{`מנחה: ${props.address.prayers.afternoon}`}</Text>
-            <Text>{`ערבית: ${props.address.prayers.evening}`}</Text>
-          </View>
+          <SynagogueDetails prayers={props.address.prayers} />
         )}
         {selectedIndex === 1 && isBuilding(props.address) && (
-          <View style={styles.rowText}>
-            <Text>{`קומה: ${props.address.floor}`}</Text>
-            <Text>{`דירה: ${props.address.apartment}`}</Text>
-          </View>
+          <BuildingDetails
+            floor={props.address.floor}
+            apartment={props.address.apartment}
+          />
+        )}
+        {selectedIndex === 2 && isPrivateHouse(props.address) && (
+          <PrivateHouseDetails entrance={props.address.entrance} />
         )}
         <View style={styles.rowText}>
           <Text>{`ממוצע תרומות: ${props.address.avgDonations}`}</Text>

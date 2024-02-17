@@ -68,8 +68,8 @@ export const TimelineItem = (props: TimelineItemProps) => {
       {!collapsed && (
         <AddressCard
           address={props.address}
-          dateString={dateString}
-          timeString={timeString}
+          date={dateString}
+          time={timeString}
         />
       )}
     </View>

@@ -20,9 +20,9 @@ export interface Synagogue extends BaseLocation {
 }
 
 export interface Prayers {
-  morning: string;
-  afternoon: string;
-  evening: string;
+  morning: string[];
+  afternoon: string[];
+  evening: string[];
 }
 
 export const LocationsList: LocationType[] = [
@@ -47,9 +47,9 @@ export const LocationsList: LocationType[] = [
     avgDonations: 500,
     remark: "פתח מזרחי",
     prayers: {
-      morning: "06:00",
-      afternoon: "13:00",
-      evening: "19:00",
+      morning: ["06:00"],
+      afternoon: ["13:00"],
+      evening: ["19:00", "21:00"],
     },
   },
 ];

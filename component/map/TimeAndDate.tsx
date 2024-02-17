@@ -2,8 +2,8 @@ import React from "react";
 import { View, Text } from "react-native";
 
 export interface TimeProps {
-  timeString: string;
-  dateString: string;
+  time: string;
+  date: string;
 }
 
 const TimeView = (props: TimeProps) => {
@@ -16,8 +16,8 @@ const TimeView = (props: TimeProps) => {
         paddingBottom: 10,
       }}
     >
-      <Text>{props.timeString}</Text>
-      <Text>{props.dateString}</Text>
+      <Text>{props.time}</Text>
+      <Text>{props.date}</Text>
     </View>
   );
 };
