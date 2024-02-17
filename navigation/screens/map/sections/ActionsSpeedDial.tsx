@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { SpeedDial } from "@rneui/themed";
 
-export default ActionsSpeedDial = () => {
+const ActionsSpeedDial = () => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -38,3 +38,4 @@ export default ActionsSpeedDial = () => {
     </SpeedDial>
   );
 };
+export default ActionsSpeedDial;

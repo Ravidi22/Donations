@@ -2,11 +2,15 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-const Alert = ({ message, onClose }) => {
+interface AlertProps {
+  message: string;
+}
+
+const Alert = (props: AlertProps) => {
   return (
     <View style={styles.alertContainer}>
-      <Text style={styles.alertText}>{message}</Text>
-      <TouchableOpacity style={styles.closeButton} onPress={onClose}>
+      <Text style={styles.alertText}>{props.message}</Text>
+      <TouchableOpacity style={styles.closeButton} onPress={() => {}}>
         <Ionicons name={"close-circle-outline"} color={"white"} size={20} />
       </TouchableOpacity>
     </View>

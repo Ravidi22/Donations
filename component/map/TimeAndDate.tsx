@@ -1,7 +1,12 @@
 import React from "react";
 import { View, Text } from "react-native";
 
-const TimeAndDate = ({ timeString, dateString }) => {
+export interface TimeProps {
+  timeString: string;
+  dateString: string;
+}
+
+const TimeView = (props: TimeProps) => {
   return (
     <View
       style={{
@@ -11,10 +16,10 @@ const TimeAndDate = ({ timeString, dateString }) => {
         paddingBottom: 10,
       }}
     >
-      <Text>{timeString}</Text>
-      <Text>{dateString}</Text>
+      <Text>{props.timeString}</Text>
+      <Text>{props.dateString}</Text>
     </View>
   );
 };
 
-export default TimeAndDate;
+export default TimeView;

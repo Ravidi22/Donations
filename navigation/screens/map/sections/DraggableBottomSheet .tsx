@@ -11,27 +11,21 @@ import Animated, {
   useAnimatedStyle,
   useAnimatedGestureHandler,
 } from "react-native-reanimated";
-import Timeline from "../../../../component/map/Timeline";
+import Timeline from "../../../../component/map/timeLine/Timeline";
 import { LocationsList } from "../LocationsUtils";
 import { Button } from "@rneui/base";
+import { useDraggableGestureHandler } from "../../../../state/hooks/useDraggableGestureHandler";
 
 const screenHeight = Dimensions.get("window").height;
 
 export const DraggableBottomSheet = () => {
-  const height = useSharedValue(150);
   const [route, setRoute] = useState(LocationsList);
 
-  const gestureHandler = useAnimatedGestureHandler({
-    onStart: (_, context) => {
-      context.startHeight = height.value;
-    },
-    onActive: (event, context) => {
-      let newHeight = context.startHeight - event.translationY;
-      newHeight = Math.max(Math.min(newHeight, screenHeight * 0.9), 150);
-      height.value = newHeight;
-    },
-    onEnd: (_) => {},
-  });
+  const { height, gestureHandler } = useDraggableGestureHandler(
+    150,
+    screenHeight * 0.9,
+    150
+  );
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
@@ -46,7 +40,9 @@ export const DraggableBottomSheet = () => {
       height.value = 150;
     }
   };
+
   const fetchRoute = () => {};
+
   return (
     <PanGestureHandler onGestureEvent={gestureHandler}>
       <Animated.View style={[styles.sheet, animatedStyle]}>
@@ -55,7 +51,7 @@ export const DraggableBottomSheet = () => {
             <View style={styles.dragItem} />
           </TouchableWithoutFeedback>
           {route !== undefined ? (
-            <Timeline data={route} />
+            <Timeline route={route} />
           ) : (
             <Button
               title="קבלת נתיב"

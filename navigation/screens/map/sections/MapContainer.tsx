@@ -3,15 +3,13 @@ import { StyleSheet, View } from "react-native";
 import MapView from "react-native-maps";
 import ActionsSpeedDial from "./ActionsSpeedDial";
 import ZoomInOut from "../../../../component/map/ZoomInOut";
-import { useLocationWatcher } from "../../../../state/hooks/UseLocationWatcher";
+import { useLocationWatcher } from "../../../../state/hooks/useLocationWatcher";
 import { DraggableBottomSheet } from "./DraggableBottomSheet ";
 
 const MapContainer = () => {
   const mapRef = useRef(null);
 
   const { location, errorMsg } = useLocationWatcher(mapRef);
-
-  const [bottomSheetHeight, setBottomSheetHeight] = useState(150);
 
   return (
     <View style={styles.container}>
@@ -24,8 +22,8 @@ const MapContainer = () => {
       />
       <ZoomInOut mapRef={mapRef} />
 
-      <ActionsSpeedDial bottomSheetHeight />
-      <DraggableBottomSheet onHeightChange={setBottomSheetHeight} />
+      <ActionsSpeedDial />
+      <DraggableBottomSheet />
     </View>
   );
 };

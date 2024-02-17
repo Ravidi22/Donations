@@ -1,9 +1,15 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Icon } from "@rneui/themed";
-import AddressCard from "./AddressCard";
+import AddressCard from "../AddressCard";
+import { LocationType } from "../../../navigation/screens/map/LocationsUtils";
 
-export const TimelineItem = ({ index, address }) => {
+interface TimelineItemProps {
+  address: LocationType;
+  index: number;
+}
+
+export const TimelineItem = (props: TimelineItemProps) => {
   const [collapsed, setCollapsed] = useState(true);
 
   const [visited, setVisited] = useState(false);
@@ -46,13 +52,11 @@ export const TimelineItem = ({ index, address }) => {
     >
       <View style={styles.itemContainer}>
         <View style={styles.indexContainer}>
-          <Text style={styles.title}>{index + 1}</Text>
+          <Text style={styles.title}>{props.index + 1}</Text>
         </View>
         <View style={{ paddingRight: 5 }}>
-          <Text
-            style={styles.title}
-          >{`${address.FirstName} ${address.LastName}`}</Text>
-          <Text style={styles.subTitle}>{address.Address}</Text>
+          <Text style={styles.title}>{`${props.address.name}`}</Text>
+          <Text style={styles.subTitle}>{props.address.address}</Text>
         </View>
         <Icon
           name={collapsed ? "chevron-down-sharp" : "chevron-up-sharp"}
@@ -63,7 +67,7 @@ export const TimelineItem = ({ index, address }) => {
 
       {!collapsed && (
         <AddressCard
-          address={address}
+          address={props.address}
           dateString={dateString}
           timeString={timeString}
         />
