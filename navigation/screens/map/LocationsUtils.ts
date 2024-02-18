@@ -31,8 +31,8 @@ export const LocationsList: LocationType[] = [
     address: "האלמוגים 24",
     avgDonations: 100,
     remark: "שער סגור לבוא מסביב",
-    floor: 0,
-    apartment: 1,
+    floor: 1,
+    apartment: 4,
   },
   {
     name: "אהרון אהרוני",

@@ -1,16 +1,22 @@
 import React, { useState, useRef } from "react";
 import { StyleSheet, View } from "react-native";
 import MapView from "react-native-maps";
-import ActionsSpeedDial from "./ActionsSpeedDial";
 import ZoomInOut from "../../../../component/map/ZoomInOut";
 import { useLocationWatcher } from "../../../../state/hooks/useLocationWatcher";
 import { DraggableBottomSheet } from "./DraggableBottomSheet ";
+import { Icon } from "@rneui/themed";
+import NewAddressModal from "../../../../component/map/NewAddressModal";
 
 const MapContainer = () => {
   const mapRef = useRef(null);
 
   const { location, errorMsg } = useLocationWatcher(mapRef);
 
+  const [modalVisbilty, setModalVisabilty] = useState(false);
+
+  const toggleDialog1 = (): void => {
+    setModalVisabilty(!modalVisbilty);
+  };
   return (
     <View style={styles.container}>
       <MapView
@@ -22,7 +28,47 @@ const MapContainer = () => {
       />
       <ZoomInOut mapRef={mapRef} />
 
-      <ActionsSpeedDial />
+      <Icon
+        name="heartbeat"
+        type="font-awesome"
+        color="#f50"
+        onPress={() => console.log("hello")}
+      />
+      <Icon
+        name="menu"
+        type="material"
+        color="rgba(90, 154, 230, 1)"
+        size={30}
+        onPress={() => console.log("hello")}
+        containerStyle={{
+          position: "absolute",
+          left: 20,
+          top: 120,
+          padding: 10,
+          backgroundColor: "white",
+          borderRadius: 10,
+        }}
+      />
+      <Icon
+        name="add-circle-outline"
+        type="material"
+        color="white"
+        size={30}
+        onPress={() => setModalVisabilty(true)}
+        containerStyle={{
+          position: "absolute",
+          right: 20,
+          bottom: 160,
+          padding: 10,
+          backgroundColor: "rgba(90, 154, 230, 1)",
+          borderRadius: 25,
+        }}
+      />
+      <NewAddressModal
+        isVisible={modalVisbilty}
+        onBackdropPress={() => toggleDialog1()}
+      />
+      {/* <ActionsSpeedDial /> */}
       <DraggableBottomSheet />
     </View>
   );

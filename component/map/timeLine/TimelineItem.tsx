@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 import { Icon } from "@rneui/themed";
 import AddressCard from "../AddressCard";
 import { LocationType } from "../../../navigation/screens/map/LocationsUtils";
+import useCurrentDateTime from "../../../state/hooks/useCurrentDateTime";
 
 interface TimelineItemProps {
   address: LocationType;
@@ -14,28 +15,13 @@ export const TimelineItem = (props: TimelineItemProps) => {
 
   const [visited, setVisited] = useState(false);
 
-  const [dateString, setDateString] = useState("");
-  const [timeString, setTimeString] = useState("");
+  const { date: currentDate, time: currentTime } = useCurrentDateTime();
+  const [date, setDate] = useState(currentDate);
+  const [time, setTime] = useState(currentTime);
 
   const toggleCollapse = () => {
-    if (collapsed) {
-      const currentDate = new Date();
-      const newDateString = `${currentDate
-        .getDate()
-        .toString()
-        .padStart(2, "0")}/${(currentDate.getMonth() + 1)
-        .toString()
-        .padStart(2, "0")}/${currentDate.getFullYear()}`;
-      const newTimeString = `${currentDate
-        .getHours()
-        .toString()
-        .padStart(2, "0")}:${currentDate
-        .getMinutes()
-        .toString()
-        .padStart(2, "0")}`;
-      setDateString(newDateString);
-      setTimeString(newTimeString);
-    }
+    setDate(currentDate);
+    setTime(currentTime);
     setCollapsed(!collapsed);
   };
 
@@ -66,11 +52,7 @@ export const TimelineItem = (props: TimelineItemProps) => {
       </View>
 
       {!collapsed && (
-        <AddressCard
-          address={props.address}
-          date={dateString}
-          time={timeString}
-        />
+        <AddressCard address={props.address} date={date} time={time} />
       )}
     </View>
   );

@@ -6,11 +6,7 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import { PanGestureHandler } from "react-native-gesture-handler";
-import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  useAnimatedGestureHandler,
-} from "react-native-reanimated";
+import Animated, { useAnimatedStyle } from "react-native-reanimated";
 import Timeline from "../../../../component/map/timeLine/Timeline";
 import { LocationsList } from "../LocationsUtils";
 import { Button } from "@rneui/base";
