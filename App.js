@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import LoginScreen from "./navigation/screens/login/Login";
 import MainScreen from "./navigation/Main";
 import { store } from "./state/store";
+import NewAddressScreen from "./navigation/screens/newAddress/NewAddressModal";
 
 const Stack = createStackNavigator();
 
@@ -18,6 +19,11 @@ const App = () => {
           <Stack.Screen
             name="Home"
             component={MainScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="NewAddress"
+            component={NewAddressScreen}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Divider, ButtonGroup } from "@rneui/themed";
 
-import { TextInput } from "../Basic/TextInput";
 import TimeView, { TimeProps } from "./TimeAndDate";
 import {
   Building,
@@ -13,6 +12,7 @@ import {
 import SynagogueDetails from "./address/SynagogueDetails";
 import BuildingDetails from "./address/BuildingDetails";
 import PrivateHouseDetails from "./address/PrivateHouseDetails";
+import { TextInput } from "react-native-paper";
 
 interface AddressCardProps extends TimeProps {
   address: LocationType;
@@ -42,8 +42,8 @@ const AddressCard = (props: AddressCardProps) => {
   function isPrivateHouse(address: LocationType): address is PrivateHouse {
     return "entrance" in address;
   }
-  const [userId, setUserId] = useState("");
-  const [remark, setRemark] = useState("");
+  const [donation, setDonation] = useState("");
+  const [note, setNote] = useState("");
 
   return (
     <View>
@@ -53,7 +53,7 @@ const AddressCard = (props: AddressCardProps) => {
         <ButtonGroup
           buttons={["בית כנסת", "בניין", "קרקע"]}
           selectedIndex={selectedIndex}
-          onPress={(value) => () => {}}
+          onPress={(value) => {}}
           containerStyle={{ marginBottom: 20, borderRadius: 20 }}
         />
         {selectedIndex === 0 && isSynagogue(props.address) && (
@@ -72,19 +72,28 @@ const AddressCard = (props: AddressCardProps) => {
           <Text>{`ממוצע תרומות: ${props.address.avgDonations}`}</Text>
         </View>
         <TextInput
+          mode="outlined"
           label={"סכום תרומה"}
-          value={userId}
-          onChangeText={setUserId}
-          placeholder="הכנס סכום"
+          value={donation}
+          onChangeText={setDonation}
           keyboardType="numeric"
-          maxLength={9}
+          style={{
+            direction: "rtl",
+            textAlign: "right",
+            marginVertical: 5,
+          }}
         />
         <TextInput
+          mode="outlined"
           label={"הערה"}
-          value={remark}
-          onChangeText={setRemark}
-          placeholder="הכנס הערה"
-          maxLength={9}
+          value={note}
+          onChangeText={setNote}
+          keyboardType="numeric"
+          style={{
+            direction: "rtl",
+            textAlign: "right",
+            marginVertical: 5,
+          }}
         />
       </View>
     </View>

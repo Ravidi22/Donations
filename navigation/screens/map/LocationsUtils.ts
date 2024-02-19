@@ -1,10 +1,10 @@
 export type LocationType = PrivateHouse | Building | Synagogue;
 
-interface BaseLocation {
+export interface BaseLocation {
   name: string;
   address: string;
   avgDonations: number;
-  remark: string;
+  note: string;
 }
 
 export interface PrivateHouse extends BaseLocation {
@@ -30,7 +30,7 @@ export const LocationsList: LocationType[] = [
     name: "דני רביד",
     address: "האלמוגים 24",
     avgDonations: 100,
-    remark: "שער סגור לבוא מסביב",
+    note: "שער סגור לבוא מסביב",
     floor: 1,
     apartment: 4,
   },
@@ -38,14 +38,14 @@ export const LocationsList: LocationType[] = [
     name: "אהרון אהרוני",
     address: "רחוב המשוררים 3",
     avgDonations: 250,
-    remark: "ליד הסופרמרקט",
+    note: "ליד הסופרמרקט",
     entrance: "כניסה א",
   },
   {
     name: "בית כנסת הגדול",
     address: "שדרות הרצל 45",
     avgDonations: 500,
-    remark: "פתח מזרחי",
+    note: "פתח מזרחי",
     prayers: {
       morning: ["06:00"],
       afternoon: ["13:00"],

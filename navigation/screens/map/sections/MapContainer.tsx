@@ -5,9 +5,8 @@ import ZoomInOut from "../../../../component/map/ZoomInOut";
 import { useLocationWatcher } from "../../../../state/hooks/useLocationWatcher";
 import { DraggableBottomSheet } from "./DraggableBottomSheet ";
 import { Icon } from "@rneui/themed";
-import NewAddressModal from "../../../../component/map/NewAddressModal";
 
-const MapContainer = () => {
+const MapContainer = ({ navigation }) => {
   const mapRef = useRef(null);
 
   const { location, errorMsg } = useLocationWatcher(mapRef);
@@ -53,22 +52,17 @@ const MapContainer = () => {
         name="add-circle-outline"
         type="material"
         color="white"
-        size={30}
-        onPress={() => setModalVisabilty(true)}
+        size={40}
+        onPress={() => navigation.navigate("NewAddress")}
         containerStyle={{
           position: "absolute",
           right: 20,
           bottom: 160,
           padding: 10,
           backgroundColor: "rgba(90, 154, 230, 1)",
-          borderRadius: 25,
+          borderRadius: 50,
         }}
       />
-      <NewAddressModal
-        isVisible={modalVisbilty}
-        onBackdropPress={() => toggleDialog1()}
-      />
-      {/* <ActionsSpeedDial /> */}
       <DraggableBottomSheet />
     </View>
   );

@@ -5,7 +5,7 @@ import MapContainer from "./screens/map/sections/MapContainer";
 const MainScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <MapContainer />
+      <MapContainer navigation={navigation} />
     </View>
   );
 };
