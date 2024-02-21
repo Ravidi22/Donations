@@ -4,6 +4,10 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
+  View,
+  TouchableOpacity,
+  Text,
+  ImageBackground,
 } from "react-native";
 import {
   TextInput,
@@ -75,64 +79,85 @@ const LoginScreen = ({ navigation }) => {
         /> */
   }
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    <ImageBackground
+      source={require("../../../assets/donationLogin.png")}
+      style={styles.backgroundImage}
+      resizeMode="cover"
     >
-      <ScrollView contentContainerStyle={styles.contentContainer}>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
         {showAlert && <Alert message={"התחברות נכשלה"} />}
-
-        <TextInput
-          label={"תעודת זהות"}
-          value={userId}
-          onChangeText={setUserId}
-          placeholder='הכנס ת"ז'
-          keyboardType="numeric"
-          maxLength={9}
-        />
-
-        <TextInputWithIcon
-          label={"סיסמת הארגון"}
-          value={organizationPassword}
-          onChangeText={setOrganizationPassword}
-          placeholder="הכנס סיסמת ארגון"
-          secureTextEntry={!passwordVisible}
-          onPress={() => setPasswordVisible(!passwordVisible)}
-          Icon={passwordVisible ? "eye-outline" : "eye-off-outline"}
-          iconColor={"black"}
-        />
-
-        <Button
-          title="התחברות"
-          buttonStyle={styles.buttonStyle}
-          containerStyle={{
-            width: 200,
-            marginHorizontal: 50,
-            marginVertical: 10,
+        <View
+          style={{
+            position: "absolute",
+            bottom: 0,
+            width: "100%",
+            height: "70%",
+            backgroundColor: "white",
+            borderTopRightRadius: 30,
+            borderTopLeftRadius: 30,
+            padding: 30,
           }}
-          onPress={handleLogin}
-          titleStyle={{ fontWeight: "bold" }}
-        />
-      </ScrollView>
-    </KeyboardAvoidingView>
+        >
+          <Text
+            style={{
+              alignSelf: "center",
+              paddingBottom: 30,
+              fontWeight: "bold",
+              fontSize: 20,
+            }}
+          >
+            התחברות
+          </Text>
+          <TextInput
+            label={"תעודת זהות"}
+            value={userId}
+            onChangeText={setUserId}
+            placeholder='הכנס ת"ז'
+            keyboardType="numeric"
+            maxLength={9}
+          />
+
+          <TextInputWithIcon
+            label={"סיסמת הארגון"}
+            value={organizationPassword}
+            onChangeText={setOrganizationPassword}
+            placeholder="הכנס סיסמת ארגון"
+            secureTextEntry={!passwordVisible}
+            onPress={() => setPasswordVisible(!passwordVisible)}
+            Icon={passwordVisible ? "eye-outline" : "eye-off-outline"}
+            iconColor={"black"}
+          />
+
+          <Button
+            title="התחברות"
+            buttonStyle={styles.buttonStyle}
+            containerStyle={{
+              paddingTop: 20,
+              width: "100%",
+            }}
+            onPress={handleLogin}
+            titleStyle={{ fontWeight: "bold", fontSize: 16 }}
+          />
+        </View>
+      </KeyboardAvoidingView>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  backgroundImage: {
     flex: 1,
-    backgroundColor: "#EFF0F8",
-    padding: 10,
-  },
-  contentContainer: {
-    flexGrow: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 10,
+    position: "absolute",
+    top: 0,
+    width: "100%",
+    height: "100%",
   },
   buttonStyle: {
     backgroundColor: "rgba(90, 154, 230, 1)",
-    borderWidth: 2,
+    padding: 13,
     borderColor: "white",
     borderRadius: 30,
   },

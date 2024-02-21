@@ -25,6 +25,8 @@ export interface Prayers {
   evening: string[];
 }
 
+export type PrayersType = "morning" | "afternoon" | "evening";
+
 export const LocationsList: LocationType[] = [
   {
     name: "דני רביד",

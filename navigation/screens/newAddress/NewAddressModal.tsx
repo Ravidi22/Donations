@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { View, StyleSheet, ScrollView, Text } from "react-native";
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 import { Button, ButtonGroup, Divider, Icon } from "@rneui/themed";
 import { TextInput } from "react-native-paper";
 import TimeView from "../../../component/map/TimeAndDate";
@@ -7,12 +13,15 @@ import useCurrentDateTime from "../../../state/hooks/useCurrentDateTime";
 import {
   BaseLocation,
   Building,
+  PrayersType,
   PrivateHouse,
   Synagogue,
 } from "../map/LocationsUtils";
 import PrivateHouseInput from "../../../component/map/input/PrivateHouseInput";
 import SynagogueInput from "../../../component/map/input/SynagogueInput";
 import BuildingInput from "../../../component/map/input/BuildingInput";
+import { initialsLocation } from "./InputOptions";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 const NewAddressScreen = ({ navigation }) => {
   const { date, time } = useCurrentDateTime();
@@ -21,20 +30,12 @@ const NewAddressScreen = ({ navigation }) => {
 
   const [location, setLocation] = useState<
     BaseLocation | PrivateHouse | Building | Synagogue
-  >({
-    name: "",
-    address: "",
-    avgDonations: 0,
-    note: "",
-    floor: 0,
-    apartment: 0,
-    prayers: { morning: [], afternoon: [], evening: [] },
-  });
+  >(initialsLocation);
 
   const handleInputChange = (
     name: string,
     value: string | number | string[],
-    field?: "morning" | "afternoon" | "evening"
+    field?: PrayersType
   ) => {
     setLocation((prev: Synagogue) => {
       if (field) {
@@ -51,22 +52,34 @@ const NewAddressScreen = ({ navigation }) => {
     });
   };
 
+  const handleDeletePrayerTime = (type: PrayersType, index: number) => {
+    setLocation((prev: Synagogue) => ({
+      ...prev,
+      prayers: {
+        ...prev.prayers,
+        [type]: prev.prayers[type].filter((_, i) => i !== index),
+      },
+    }));
+  };
+
   const [donation, setDonation] = useState("");
   const [note, setNote] = useState("");
 
   return (
-    <ScrollView style={{ padding: 30 }}>
+    <ScrollView style={{ paddingVertical: 40, paddingHorizontal: 20 }}>
       <View>
         <View
           style={{
             flexDirection: "row",
             alignItems: "center",
-            justifyContent: "space-evenly",
+            justifyContent: "space-between",
           }}
         >
           <Button title="שמור" type="clear" />
-          <Text style={{ fontSize: 20, fontWeight: "bold" }}>הוספת כתובת</Text>
-          <Icon name={"close"} />
+          <Text style={{ fontSize: 20, fontWeight: "bold" }}>כתובת</Text>
+          <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+            <Ionicons name={"close"} color={"black"} size={30} />
+          </TouchableOpacity>
         </View>
         <Divider style={{ padding: 2 }} />
         <View style={{ padding: 10 }}>
@@ -97,6 +110,7 @@ const NewAddressScreen = ({ navigation }) => {
             <SynagogueInput
               location={location as Synagogue}
               handleInputChange={handleInputChange}
+              handleDeletePrayerTime={handleDeletePrayerTime}
             />
           )}
           {selectedIndex === 1 && (
@@ -129,7 +143,6 @@ const NewAddressScreen = ({ navigation }) => {
             label={"הערה"}
             value={note}
             onChangeText={setNote}
-            keyboardType="numeric"
             style={{
               direction: "rtl",
               textAlign: "right",

@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import { Synagogue } from "../../../navigation/screens/map/LocationsUtils";
+import {
+  Prayers,
+  PrayersType,
+  Synagogue,
+} from "../../../navigation/screens/map/LocationsUtils";
 import {
   View,
   StyleSheet,
   Text,
-  Platform,
   TouchableOpacity,
   Modal,
   Button,
@@ -18,16 +21,17 @@ interface SynagogueInputProps {
   handleInputChange: (
     name: string,
     value: string | number | string[],
-    field?: "morning" | "afternoon" | "evening"
+    field?: PrayersType
   ) => void;
+  handleDeletePrayerTime: (type: PrayersType, index: number) => void;
 }
 
 const SynagogueInput = (props: SynagogueInputProps) => {
-  const [date, setDate] = useState(new Date());
   const [modalVisible, setModalVisible] = useState(false);
-  const [currentPrayerType, setCurrentPrayerType] = useState("");
+  const [currentPrayerType, setCurrentPrayerType] =
+    useState<PrayersType>("morning");
 
-  const [pickedTime, setPickedTime] = useState<Date>(undefined);
+  const [pickedTime, setPickedTime] = useState<Date>(new Date());
 
   const addPrayerTime = (type) => {
     setCurrentPrayerType(type);
@@ -35,59 +39,80 @@ const SynagogueInput = (props: SynagogueInputProps) => {
   };
 
   const onChangeTime = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-
+    const currentDate = selectedDate || pickedTime;
     setPickedTime(currentDate);
-    setModalVisible(false);
   };
 
   const onCancel = () => {
     setModalVisible(false);
   };
   const onConfirm = () => {
-    setDate(pickedTime);
+    props.handleInputChange(
+      "prayers",
+      `${pickedTime.getHours().toString().padStart(2, "0")}:${pickedTime
+        .getMinutes()
+        .toString()
+        .padStart(2, "0")}`,
+      currentPrayerType
+    );
     setModalVisible(false);
   };
 
   return (
     <View style={styles.container}>
-      {["morning", "afternoon", "evening"].map((prayerType, index) => (
-        <View key={prayerType} style={styles.prayerSection}>
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row-reverse",
-              justifyContent: "space-between",
-              alignItems: "center",
-              width: "100%",
-              padding: 5,
-              borderRadius: 20,
-            }}
-          >
-            <Text style={[styles.prayerLabel, { marginRight: "auto" }]}>
-              {prayerType === "morning"
-                ? "שחרית"
-                : prayerType === "afternoon"
-                ? "מנחה"
-                : "ערבית"}
-              :
-            </Text>
-            <TouchableOpacity
-              onPress={() => addPrayerTime(prayerType)}
-              style={{ marginLeft: "auto" }}
-            >
-              <Ionicons name={"add-circle-outline"} color={"black"} size={20} />
-            </TouchableOpacity>
+      {["morning", "afternoon", "evening"].map(
+        (prayerType: PrayersType, index: number) => (
+          <View key={prayerType} style={styles.prayerSection}>
+            <View style={styles.pryerContainer}>
+              <Text style={[styles.prayerLabel, { marginRight: "auto" }]}>
+                {prayerType === "morning"
+                  ? "שחרית"
+                  : prayerType === "afternoon"
+                  ? "מנחה"
+                  : "ערבית"}
+                :
+              </Text>
+              <TouchableOpacity
+                onPress={() => addPrayerTime(prayerType)}
+                style={{ marginLeft: "auto" }}
+              >
+                <Ionicons
+                  name={"add-circle-outline"}
+                  color={"black"}
+                  size={20}
+                />
+              </TouchableOpacity>
+            </View>
+            <Divider style={styles.divider} />
+            <View style={styles.prayerSection}>
+              {props.location.prayers[prayerType].map((prayer, index) => (
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    padding: 5,
+                  }}
+                >
+                  <TouchableOpacity
+                    onPress={() =>
+                      props.handleDeletePrayerTime(prayerType, index)
+                    }
+                  >
+                    <Ionicons
+                      name={"close-circle-outline"}
+                      color={"red"}
+                      size={20}
+                    />
+                  </TouchableOpacity>
+                  <Text key={`${prayerType}-${index}`}>{prayer}</Text>
+                </View>
+              ))}
+            </View>
+            <Divider style={styles.divider} />
           </View>
-
-          <View style={styles.prayersList}>
-            {props.location.prayers[prayerType].map((prayer, index) => (
-              <Text key={`${prayerType}-${index}`}>{prayer}</Text>
-            ))}
-          </View>
-          <Divider style={styles.divider} />
-        </View>
-      ))}
+        )
+      )}
 
       <Modal
         animationType="slide"
@@ -101,7 +126,7 @@ const SynagogueInput = (props: SynagogueInputProps) => {
           <View style={styles.modalView}>
             <DateTimePicker
               testID="dateTimePicker"
-              value={date}
+              value={pickedTime}
               mode="time"
               is24Hour={true}
               display="default"
@@ -124,15 +149,17 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingVertical: 10,
   },
-  prayerSection: {
+  pryerContainer: {
+    display: "flex",
     flexDirection: "row-reverse",
     justifyContent: "space-between",
-    alignItems: "flex-start",
+    alignItems: "center",
     width: "100%",
+    padding: 5,
+    borderRadius: 20,
   },
-  prayersList: {
+  prayerSection: {
     flexDirection: "column",
-    alignItems: "flex-start",
   },
   prayerLabel: {
     fontWeight: "bold",

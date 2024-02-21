@@ -28,17 +28,11 @@ const MapContainer = ({ navigation }) => {
       <ZoomInOut mapRef={mapRef} />
 
       <Icon
-        name="heartbeat"
-        type="font-awesome"
-        color="#f50"
-        onPress={() => console.log("hello")}
-      />
-      <Icon
         name="menu"
         type="material"
         color="rgba(90, 154, 230, 1)"
         size={30}
-        onPress={() => console.log("hello")}
+        onPress={() => navigation.navigate("Settings")}
         containerStyle={{
           position: "absolute",
           left: 20,
