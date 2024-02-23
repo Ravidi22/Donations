@@ -1,6 +1,6 @@
 import React from "react";
 import { TextInput } from "react-native-paper";
-import { PrivateHouse } from "../../../navigation/screens/map/LocationsUtils";
+import { PrivateHouse } from "../../../types/LocationsUtils";
 
 interface PrivateHouseInputProps {
   location: PrivateHouse;

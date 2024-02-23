@@ -8,7 +8,7 @@ import {
 import { PanGestureHandler } from "react-native-gesture-handler";
 import Animated, { useAnimatedStyle } from "react-native-reanimated";
 import Timeline from "../../../../component/map/timeLine/Timeline";
-import { LocationsList } from "../LocationsUtils";
+import { LocationsList } from "../../../../types/LocationsUtils";
 import { Button } from "@rneui/base";
 import { useDraggableGestureHandler } from "../../../../state/hooks/useDraggableGestureHandler";
 

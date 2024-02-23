@@ -1,4 +1,4 @@
-import { LocationType } from "../map/LocationsUtils";
+import { LocationType } from "../../../types/LocationsUtils";
 
 export const initialsLocation: LocationType = {
   name: "",

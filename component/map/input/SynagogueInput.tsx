@@ -1,9 +1,5 @@
 import React, { useState } from "react";
-import {
-  Prayers,
-  PrayersType,
-  Synagogue,
-} from "../../../navigation/screens/map/LocationsUtils";
+import { Prayers, PrayersType, Synagogue } from "../../../types/LocationsUtils";
 import {
   View,
   StyleSheet,

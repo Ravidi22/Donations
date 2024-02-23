@@ -16,7 +16,7 @@ import {
   PrayersType,
   PrivateHouse,
   Synagogue,
-} from "../map/LocationsUtils";
+} from "../../../types/LocationsUtils";
 import PrivateHouseInput from "../../../component/map/input/PrivateHouseInput";
 import SynagogueInput from "../../../component/map/input/SynagogueInput";
 import BuildingInput from "../../../component/map/input/BuildingInput";

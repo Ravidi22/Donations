@@ -1,6 +1,6 @@
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
-import { Prayers } from "../../../navigation/screens/map/LocationsUtils";
+import { Prayers } from "../../../types/LocationsUtils";
 import { Divider } from "@rneui/themed";
 
 const SynagogueDetails = ({ prayers }: { prayers: Prayers }) => {

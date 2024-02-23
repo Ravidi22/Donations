@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Icon } from "@rneui/themed";
 import AddressCard from "../AddressCard";
-import { LocationType } from "../../../navigation/screens/map/LocationsUtils";
+import { LocationType } from "../../../types/LocationsUtils";
 import useCurrentDateTime from "../../../state/hooks/useCurrentDateTime";
 
 interface TimelineItemProps {

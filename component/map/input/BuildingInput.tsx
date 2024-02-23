@@ -1,7 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 import { TextInput } from "react-native-paper";
-import { Building } from "../../../navigation/screens/map/LocationsUtils";
+import { Building } from "../../../types/LocationsUtils";
 
 interface BuildingProps {
   location: Building;

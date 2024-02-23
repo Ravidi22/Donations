@@ -8,7 +8,7 @@ import {
   LocationType,
   PrivateHouse,
   Synagogue,
-} from "../../navigation/screens/map/LocationsUtils";
+} from "../../types/LocationsUtils";
 import SynagogueDetails from "./address/SynagogueDetails";
 import BuildingDetails from "./address/BuildingDetails";
 import PrivateHouseDetails from "./address/PrivateHouseDetails";

@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, ScrollView } from "react-native";
 import { TimelineItem } from "./TimelineItem";
-import { LocationType } from "../../../navigation/screens/map/LocationsUtils";
+import { LocationType } from "../../../types/LocationsUtils";
 
 interface TimelineProps {
   route: LocationType[];

@@ -5,17 +5,13 @@ import ZoomInOut from "../../../../component/map/ZoomInOut";
 import { useLocationWatcher } from "../../../../state/hooks/useLocationWatcher";
 import { DraggableBottomSheet } from "./DraggableBottomSheet ";
 import { Icon } from "@rneui/themed";
+import SettingsScreen from "../../settings/SettingsScreen";
 
 const MapContainer = ({ navigation }) => {
   const mapRef = useRef(null);
 
   const { location, errorMsg } = useLocationWatcher(mapRef);
 
-  const [modalVisbilty, setModalVisabilty] = useState(false);
-
-  const toggleDialog1 = (): void => {
-    setModalVisabilty(!modalVisbilty);
-  };
   return (
     <View style={styles.container}>
       <MapView
@@ -42,6 +38,7 @@ const MapContainer = ({ navigation }) => {
           borderRadius: 10,
         }}
       />
+
       <Icon
         name="add-circle-outline"
         type="material"
