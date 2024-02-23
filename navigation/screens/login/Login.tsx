@@ -1,165 +1,102 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  ScrollView,
-  KeyboardAvoidingView,
-  Platform,
-  View,
-  TouchableOpacity,
-  Text,
-  ImageBackground,
-} from "react-native";
+import { StyleSheet, Image, Text, View } from "react-native";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import Feather from "@expo/vector-icons/Feather";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import {
   TextInput,
   TextInputWithIcon,
 } from "../../../component/Basic/TextInput";
-import { Button } from "@rneui/themed";
-import Alert from "../../../component/Basic/Alert";
 
 const LoginScreen = ({ navigation }) => {
   const [userId, setUserId] = useState("");
-  const [partnerIds, setPartnerIds] = useState([]);
-
   const [organizationPassword, setOrganizationPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
 
-  const [showAlert, setShowAlert] = useState(false);
-
   const handleLogin = () => {
-    if (true) {
-      navigation.replace("Home");
-    } else {
-      setShowAlert(true);
-      setTimeout(() => setShowAlert(false), 1000);
-    }
+    navigation.replace("Home");
   };
 
-  const addPartnerIdInput = () => {
-    if (partnerIds.length < 2) {
-      setPartnerIds([...partnerIds, ""]);
-    }
-  };
-
-  const updatePartnerId = (index, value) => {
-    const updatedIds = [...partnerIds];
-    updatedIds[index] = value;
-    setPartnerIds(updatedIds);
-  };
-
-  const removePartnerIdInput = (index) => {
-    const updatedIds = partnerIds.filter((_, idx) => idx !== index);
-    setPartnerIds(updatedIds);
-  };
-  {
-    /* {partnerIds.map((partnerId, index) => (
-          <TextInputWithIcon
-            key={index}
-            label={`מזהה שותף ${index + 1}`}
-            value={partnerId}
-            onChangeText={(text) => updatePartnerId(index, text)}
-            placeholder="הכנס מזהה שותף"
-            keyboardType="numeric"
-            maxLength={9}
-            Icon={"close-circle-outline"}
-            iconColor={"red"}
-            onPress={() => removePartnerIdInput(index)}
-          />
-        ))}
-
-        <Button
-          title="הוסף שותף"
-          buttonStyle={styles.buttonStyle}
-          containerStyle={{
-            width: 200,
-            marginHorizontal: 50,
-            marginVertical: 10,
-          }}
-          onPress={addPartnerIdInput}
-          titleStyle={{ fontWeight: "bold" }}
-        /> */
-  }
   return (
-    <ImageBackground
-      source={require("../../../assets/donationLogin.png")}
-      style={styles.backgroundImage}
-      resizeMode="cover"
-    >
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-      >
-        {showAlert && <Alert message={"התחברות נכשלה"} />}
-        <View
+    <View style={styles.container}>
+      <Image
+        source={require("../../../assets/donationLogin.png")}
+        style={styles.img}
+        resizeMode="cover"
+      />
+      <View style={styles.cont3}>
+        <Text
           style={{
-            position: "absolute",
-            bottom: 0,
-            width: "100%",
-            height: "70%",
-            backgroundColor: "white",
-            borderTopRightRadius: 30,
-            borderTopLeftRadius: 30,
-            padding: 30,
+            alignSelf: "center",
+            paddingVertical: 30,
+            fontWeight: "bold",
+            fontSize: 20,
           }}
         >
-          <Text
-            style={{
-              alignSelf: "center",
-              paddingBottom: 30,
-              fontWeight: "bold",
-              fontSize: 20,
-            }}
-          >
-            התחברות
-          </Text>
-          <TextInput
-            label={"תעודת זהות"}
-            value={userId}
-            onChangeText={setUserId}
-            placeholder='הכנס ת"ז'
-            keyboardType="numeric"
-            maxLength={9}
-          />
+          התחברות
+        </Text>
+        <TextInput
+          label={"תעודת זהות"}
+          value={userId}
+          onChangeText={setUserId}
+          placeholder='הכנס ת"ז'
+          keyboardType="numeric"
+          maxLength={9}
+        />
 
-          <TextInputWithIcon
-            label={"סיסמת הארגון"}
-            value={organizationPassword}
-            onChangeText={setOrganizationPassword}
-            placeholder="הכנס סיסמת ארגון"
-            secureTextEntry={!passwordVisible}
-            onPress={() => setPasswordVisible(!passwordVisible)}
-            Icon={passwordVisible ? "eye-outline" : "eye-off-outline"}
-            iconColor={"black"}
-          />
+        <TextInputWithIcon
+          label={"סיסמת הארגון"}
+          value={organizationPassword}
+          onChangeText={setOrganizationPassword}
+          placeholder="הכנס סיסמת ארגון"
+          secureTextEntry={!passwordVisible}
+          onPress={() => setPasswordVisible(!passwordVisible)}
+          Icon={passwordVisible ? "eye-outline" : "eye-off-outline"}
+          iconColor={"black"}
+        />
 
-          <Button
-            title="התחברות"
-            buttonStyle={styles.buttonStyle}
-            containerStyle={{
-              paddingTop: 20,
-              width: "100%",
-            }}
-            onPress={handleLogin}
-            titleStyle={{ fontWeight: "bold", fontSize: 16 }}
-          />
-        </View>
-      </KeyboardAvoidingView>
-    </ImageBackground>
+        <TouchableOpacity
+          style={styles.btn}
+          onPress={() => navigation.navigate("Home")}
+        >
+          <Text style={styles.btnText}>התחברות</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  backgroundImage: {
+  container: {
     flex: 1,
-    position: "absolute",
-    top: 0,
     width: "100%",
-    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "rgba(238, 251, 255, 1)",
   },
-  buttonStyle: {
+  btn: {
     backgroundColor: "rgba(90, 154, 230, 1)",
-    padding: 13,
-    borderColor: "white",
+    paddingHorizontal: 60,
+    paddingVertical: 12,
     borderRadius: 30,
+  },
+  btnText: {
+    fontFamily: "Montserrat_600SemiBold",
+    fontSize: 20,
+    textAlign: "center",
+    fontWeight: "bold",
+    color: "#FFF",
+  },
+  img: {
+    height: "45%",
+    width: "100%",
+  },
+  cont3: {
+    flex: 1,
+    backgroundColor: "#FFF",
+    width: "100%",
+    borderRadius: 50,
+    paddingHorizontal: 20,
   },
 });
 
