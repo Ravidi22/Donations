@@ -77,7 +77,7 @@ const NewAddressScreen = ({ navigation }) => {
         >
           <Button title="שמור" type="clear" />
           <Text style={{ fontSize: 20, fontWeight: "bold" }}>כתובת</Text>
-          <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
             <Ionicons name={"close"} color={"black"} size={30} />
           </TouchableOpacity>
         </View>

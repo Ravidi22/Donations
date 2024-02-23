@@ -29,7 +29,7 @@ const SettingsScreen = ({ navigation }) => {
         >
           <Button title="שמור" type="clear" />
           <Text style={{ fontSize: 20, fontWeight: "bold" }}>הגדרות</Text>
-          <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
             <Ionicons name={"close"} color={"black"} size={30} />
           </TouchableOpacity>
         </View>

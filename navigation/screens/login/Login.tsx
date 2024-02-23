@@ -25,16 +25,7 @@ const LoginScreen = ({ navigation }) => {
         resizeMode="cover"
       />
       <View style={styles.cont3}>
-        <Text
-          style={{
-            alignSelf: "center",
-            paddingVertical: 30,
-            fontWeight: "bold",
-            fontSize: 20,
-          }}
-        >
-          התחברות
-        </Text>
+        <Text style={styles.title}>התחברות</Text>
         <TextInput
           label={"תעודת זהות"}
           value={userId}
@@ -78,10 +69,16 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(90, 154, 230, 1)",
     paddingHorizontal: 60,
     paddingVertical: 12,
+    marginTop: 10,
     borderRadius: 30,
   },
+  title: {
+    alignSelf: "center",
+    paddingVertical: 30,
+    fontWeight: "bold",
+    fontSize: 20,
+  },
   btnText: {
-    fontFamily: "Montserrat_600SemiBold",
     fontSize: 20,
     textAlign: "center",
     fontWeight: "bold",
