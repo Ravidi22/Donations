@@ -52,6 +52,11 @@ const App = () => {
               },
             }}
           />
+          <Stack.Screen
+            name="AddPartners"
+            component={NewAddressScreen}
+            options={{ headerShown: false }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
