@@ -7,6 +7,7 @@ import { store } from "./state/store";
 import LoginScreen from "./navigation/screens/login/Login";
 import MainScreen from "./navigation/Main";
 import NewAddressScreen from "./navigation/screens/newAddress/NewAddressModal";
+import AddPartnerScreen from "./navigation/screens/searchPartner/AddPartnerScreen";
 import SettingsScreen from "./navigation/screens/settings/SettingsScreen";
 
 const Stack = createStackNavigator();
@@ -54,7 +55,7 @@ const App = () => {
           />
           <Stack.Screen
             name="AddPartners"
-            component={NewAddressScreen}
+            component={AddPartnerScreen}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
