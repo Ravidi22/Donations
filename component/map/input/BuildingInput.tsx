@@ -23,6 +23,7 @@ const BuildingInput = (props: BuildingProps) => {
         value={props.location.floor.toString()}
         onChangeText={(text) => props.handleInputChange("floor", text)}
         keyboardType="numeric"
+        maxLength={3}
         style={{ direction: "rtl", textAlign: "right", width: 120 }}
       />
       <TextInput
@@ -31,6 +32,7 @@ const BuildingInput = (props: BuildingProps) => {
         value={props.location.apartment.toString()}
         onChangeText={(text) => props.handleInputChange("apartment", text)}
         keyboardType="numeric"
+        maxLength={3}
         style={{ direction: "rtl", textAlign: "right", width: 120 }}
       />
     </View>

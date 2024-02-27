@@ -22,13 +22,19 @@ import SynagogueInput from "../../../component/map/input/SynagogueInput";
 import BuildingInput from "../../../component/map/input/BuildingInput";
 import { initialsLocation } from "./InputOptions";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../state/store";
+import { addAddress } from "../../../state/reducers/routeReducer";
 
 const NewAddressScreen = ({ navigation }) => {
+  const route = useSelector((state: RootState) => state.route);
+  const dispatch = useDispatch();
+
   const { date, time } = useCurrentDateTime();
 
   const [selectedIndex, setSelectedIndex] = useState<number>(2);
 
-  const [location, setLocation] = useState<
+  const [newAddress, setNewAddress] = useState<
     BaseLocation | PrivateHouse | Building | Synagogue
   >(initialsLocation);
 
@@ -37,7 +43,7 @@ const NewAddressScreen = ({ navigation }) => {
     value: string | number | string[],
     field?: PrayersType
   ) => {
-    setLocation((prev: Synagogue) => {
+    setNewAddress((prev: Synagogue) => {
       if (field) {
         return {
           ...prev,
@@ -53,7 +59,7 @@ const NewAddressScreen = ({ navigation }) => {
   };
 
   const handleDeletePrayerTime = (type: PrayersType, index: number) => {
-    setLocation((prev: Synagogue) => ({
+    setNewAddress((prev: Synagogue) => ({
       ...prev,
       prayers: {
         ...prev.prayers,
@@ -62,90 +68,114 @@ const NewAddressScreen = ({ navigation }) => {
     }));
   };
 
+  const isAddressValid = (): boolean => {
+    return true;
+  };
+
+  const handleAddAddress = () => {
+    if (isAddressValid()) {
+      dispatch(addAddress(newAddress));
+      navigation.navigate("Home");
+    }
+  };
+
   const [donation, setDonation] = useState("");
   const [note, setNote] = useState("");
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>כתובת חדשה</Text>
-        <TouchableOpacity
-          style={styles.goBackBtn}
-          onPress={() => navigation.goBack()}
-        >
-          <Ionicons name={"close"} color={"#5A97C2"} size={35} />
-        </TouchableOpacity>
-      </View>
+    <ScrollView style={{ backgroundColor: "white" }}>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.headerText}>כתובת חדשה</Text>
+          <TouchableOpacity
+            style={styles.goBackBtn}
+            onPress={() => navigation.goBack()}
+          >
+            <Ionicons name={"close"} color={"#5A97C2"} size={35} />
+          </TouchableOpacity>
+        </View>
 
-      <View style={styles.innerContainer}>
-        <TimeView date={date} time={time} />
-        <TextInput
-          mode="outlined"
-          label={"קומה"}
-          value={location.name.toString()}
-          onChangeText={(text) => handleInputChange("name", text)}
-          keyboardType="numeric"
-          style={{ direction: "rtl", textAlign: "right" }}
-        />
-        <TextInput
-          mode="outlined"
-          label={"כתובת"}
-          value={location.address.toString()}
-          onChangeText={(text) => handleInputChange("address", text)}
-          keyboardType="numeric"
-          style={{ direction: "rtl", textAlign: "right" }}
-        />
-        <ButtonGroup
-          buttons={["בית כנסת", "בניין", "קרקע"]}
-          selectedIndex={selectedIndex}
-          onPress={(value) => setSelectedIndex(value)}
-          containerStyle={{ marginVertical: 20, borderRadius: 20 }}
-        />
-        {selectedIndex === 0 && (
-          <SynagogueInput
-            location={location as Synagogue}
-            handleInputChange={handleInputChange}
-            handleDeletePrayerTime={handleDeletePrayerTime}
+        <View style={styles.innerContainer}>
+          <TimeView date={date} time={time} />
+          <TextInput
+            mode="outlined"
+            label={"שם"}
+            value={newAddress.name.toString()}
+            onChangeText={(text) => handleInputChange("name", text)}
+            style={{ direction: "rtl", textAlign: "right" }}
           />
-        )}
-        {selectedIndex === 1 && (
-          <BuildingInput
-            location={location as Building}
-            handleInputChange={handleInputChange}
+          <TextInput
+            mode="outlined"
+            label={"עיר"}
+            value={newAddress.address.toString()}
+            onChangeText={(text) => handleInputChange("city", text)}
+            style={{ direction: "rtl", textAlign: "right" }}
           />
-        )}
-        {selectedIndex === 2 && (
-          <PrivateHouseInput
-            location={location as PrivateHouse}
-            handleInputChange={handleInputChange}
+          <TextInput
+            mode="outlined"
+            label={"כתובת"}
+            value={newAddress.address.toString()}
+            onChangeText={(text) => handleInputChange("address", text)}
+            style={{ direction: "rtl", textAlign: "right" }}
           />
-        )}
+          <ButtonGroup
+            buttons={["בית כנסת", "בניין", "קרקע"]}
+            selectedIndex={selectedIndex}
+            onPress={(value) => setSelectedIndex(value)}
+            containerStyle={{ marginVertical: 20, borderRadius: 20 }}
+          />
+          {selectedIndex === 0 && (
+            <SynagogueInput
+              location={newAddress as Synagogue}
+              handleInputChange={handleInputChange}
+              handleDeletePrayerTime={handleDeletePrayerTime}
+            />
+          )}
+          {selectedIndex === 1 && (
+            <BuildingInput
+              location={newAddress as Building}
+              handleInputChange={handleInputChange}
+            />
+          )}
+          {selectedIndex === 2 && (
+            <PrivateHouseInput
+              location={newAddress as PrivateHouse}
+              handleInputChange={handleInputChange}
+            />
+          )}
 
-        <TextInput
-          mode="outlined"
-          label={"סכום תרומה"}
-          value={donation}
-          onChangeText={setDonation}
-          keyboardType="numeric"
-          style={{
-            direction: "rtl",
-            textAlign: "right",
-            marginVertical: 5,
-          }}
-        />
-        <TextInput
-          mode="outlined"
-          label={"הערה"}
-          value={note}
-          onChangeText={setNote}
-          style={{
-            direction: "rtl",
-            textAlign: "right",
-            marginVertical: 5,
-          }}
-        />
+          <TextInput
+            mode="outlined"
+            label={"סכום תרומה"}
+            value={donation}
+            onChangeText={setDonation}
+            keyboardType="numeric"
+            style={{
+              direction: "rtl",
+              textAlign: "right",
+              marginVertical: 5,
+            }}
+          />
+          <TextInput
+            mode="outlined"
+            label={"הערה"}
+            value={note}
+            onChangeText={setNote}
+            style={{
+              direction: "rtl",
+              textAlign: "right",
+              marginVertical: 5,
+            }}
+          />
+          <TouchableOpacity
+            style={styles.btn}
+            onPress={() => handleAddAddress()}
+          >
+            <Text style={styles.btnText}>הוסף</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -157,6 +187,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingTop: 40,
     backgroundColor: "white",
+  },
+  btn: {
+    backgroundColor: "rgba(90, 154, 230, 1)",
+    paddingHorizontal: 60,
+    paddingVertical: 12,
+    marginTop: 10,
+    borderRadius: 30,
+  },
+  btnText: {
+    fontSize: 20,
+    textAlign: "center",
+    fontWeight: "bold",
+    color: "#FFF",
   },
   goBackBtn: {
     position: "absolute",

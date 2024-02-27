@@ -5,9 +5,10 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { useSelector, useDispatch } from "react-redux";
 import { removePartner } from "../../../state/reducers/userReducer";
 import { User } from "../../../types/User";
+import { RootState } from "../../../state/store";
 
 const SettingsScreen = ({ navigation }) => {
-  const user: User = useSelector((state) => state.user);
+  const user: User = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
 
   return (

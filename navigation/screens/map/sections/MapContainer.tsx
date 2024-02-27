@@ -54,6 +54,7 @@ const MapContainer = ({ navigation }) => {
           borderRadius: 50,
         }}
       />
+
       <DraggableBottomSheet />
     </View>
   );

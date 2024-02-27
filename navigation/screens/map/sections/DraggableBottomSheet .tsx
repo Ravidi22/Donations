@@ -11,11 +11,14 @@ import Timeline from "../../../../component/map/timeLine/Timeline";
 import { LocationsList } from "../../../../types/LocationsUtils";
 import { Button } from "@rneui/base";
 import { useDraggableGestureHandler } from "../../../../state/hooks/useDraggableGestureHandler";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../../state/store";
 
 const screenHeight = Dimensions.get("window").height;
 
 export const DraggableBottomSheet = () => {
-  const [route, setRoute] = useState(LocationsList);
+  const route = useSelector((state: RootState) => state.route);
+  const dispatch = useDispatch();
 
   const { height, gestureHandler } = useDraggableGestureHandler(
     150,
@@ -47,7 +50,7 @@ export const DraggableBottomSheet = () => {
             <View style={styles.dragItem} />
           </TouchableWithoutFeedback>
           {route !== undefined ? (
-            <Timeline route={route} />
+            <Timeline {...route} />
           ) : (
             <Button
               title="קבלת נתיב"

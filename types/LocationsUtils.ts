@@ -3,6 +3,7 @@ export type LocationType = PrivateHouse | Building | Synagogue;
 export interface BaseLocation {
   id: number;
   name: string;
+  city: string;
   address: string;
   avgDonations: number;
   note: string;
@@ -32,6 +33,7 @@ export const LocationsList: LocationType[] = [
   {
     id: 1,
     name: "דני רביד",
+    city: "אשדוד",
     address: "האלמוגים 24",
     avgDonations: 100,
     note: "שער סגור לבוא מסביב",
@@ -41,6 +43,7 @@ export const LocationsList: LocationType[] = [
   {
     id: 2,
     name: "אהרון אהרוני",
+    city: "אשדוד",
     address: "רחוב המשוררים 3",
     avgDonations: 250,
     note: "ליד הסופרמרקט",
@@ -49,6 +52,7 @@ export const LocationsList: LocationType[] = [
   {
     id: 3,
     name: "בית כנסת הגדול",
+    city: "אשדוד",
     address: "שדרות הרצל 45",
     avgDonations: 500,
     note: "פתח מזרחי",

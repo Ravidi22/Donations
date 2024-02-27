@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { LocationType, LocationsList } from "../../types/LocationsUtils";
 
 const initialState = {
-  route: [],
+  route: LocationsList,
 };
 
 const routeSlice = createSlice({
@@ -21,5 +22,6 @@ const routeSlice = createSlice({
 });
 
 export const { addAddress, removeAddress } = routeSlice.actions;
+export const route = (state) => state.route;
 
 export default routeSlice.reducer;

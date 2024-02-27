@@ -25,5 +25,7 @@ const userSlice = createSlice({
 });
 
 export const { addPartner, removePartner } = userSlice.actions;
+export const user = (state) => state.user;
+export const userPartners = (state) => state.user.partners;
 
 export default userSlice.reducer;

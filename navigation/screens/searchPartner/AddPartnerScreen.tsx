@@ -12,9 +12,10 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { Searchbar, Snackbar } from "react-native-paper";
 import { useDispatch, useSelector } from "react-redux";
 import { addPartner } from "../../../state/reducers/userReducer";
+import { RootState } from "../../../state/store";
 
 const AddPartnerScreen = ({ navigation }) => {
-  const user: User = useSelector((state) => state.user);
+  const user: User = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -66,10 +67,8 @@ const AddPartnerScreen = ({ navigation }) => {
         inputStyle={{ textAlign: "right" }}
       />
       <ScrollView>
-        {Users.filter(
-          (partner: User) =>
-            user.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
-            !user.partners.includes(partner.id)
+        {Users.filter((partner: User) =>
+          partner.name.toLowerCase().includes(searchQuery.toLowerCase())
         ).map((partner, index) => (
           <View
             key={partner.id}
