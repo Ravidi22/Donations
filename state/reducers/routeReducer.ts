@@ -1,23 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  items: [],
+  route: [],
 };
 
 const routeSlice = createSlice({
   name: "route",
   initialState,
   reducers: {
-    addToRoute: (state, action) => {
-      state.items.push(action.payload);
+    addAddress: (state, action) => {
+      state.route.push(action.payload);
     },
-    removeFromRoute: (state, action) => {
+    removeAddress: (state, action) => {
       const addressIdToRemove = action.payload;
-      state.items = state.items.filter((item) => item.id !== addressIdToRemove);
+      state.route = state.route.filter(
+        (address) => address.id !== addressIdToRemove
+      );
     },
   },
 });
 
-export const { addToRoute, removeFromRoute } = routeSlice.actions;
+export const { addAddress, removeAddress } = routeSlice.actions;
 
 export default routeSlice.reducer;

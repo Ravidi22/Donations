@@ -18,7 +18,7 @@ const App = () => {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
-            name="התחברות"
+            name="Login"
             component={LoginScreen}
             options={{ headerShown: false }}
           />

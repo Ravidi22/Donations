@@ -1,69 +1,69 @@
 export interface User {
   name: string;
-  id: string;
+  id: number;
   organization: string;
-  parters: User[];
+  partners: User[];
 }
 
 export const Users: User[] = [
   {
     name: "אביגיל ביטון",
-    id: "642089589",
+    id: 642089589,
     organization: "סיסקו ישראל",
-    parters: [],
+    partners: [],
   },
   {
     name: "דליה ביטון",
-    id: "579622851",
+    id: 579622851,
     organization: "סיסקו ישראל",
-    parters: [],
+    partners: [],
   },
   {
     name: "אביגיל כהן",
-    id: "355443163",
+    id: 355443163,
     organization: "טכניון",
-    parters: [],
+    partners: [],
   },
   {
     name: "גדי פישר",
-    id: "838534356",
+    id: 838534356,
     organization: "מיקרוסופט ישראל",
-    parters: [],
+    partners: [],
   },
   {
     name: "גדי כהן",
-    id: "268134788",
+    id: 268134788,
     organization: "מיקרוסופט ישראל",
-    parters: [],
+    partners: [],
   },
   {
     name: "הדס בר",
-    id: "399159392",
+    id: 399159392,
     organization: "אינטל",
-    parters: [],
+    partners: [],
   },
   {
     name: "טל פרץ",
-    id: "426068111",
+    id: 426068111,
     organization: "אינטל",
-    parters: [],
+    partners: [],
   },
   {
     name: "דליה לוי",
-    id: "627705938",
+    id: 627705938,
     organization: "מיקרוסופט ישראל",
-    parters: [],
+    partners: [],
   },
   {
     name: "אביגיל מזרחי",
-    id: "908732073",
+    id: 908732073,
     organization: "מיקרוסופט ישראל",
-    parters: [],
+    partners: [],
   },
   {
     name: "זהבה כהן",
-    id: "085265721",
+    id: 185265721,
     organization: "אמזון ישראל",
-    parters: [],
+    partners: [],
   },
 ];

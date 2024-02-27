@@ -2,27 +2,13 @@ import { Avatar, Divider, Icon, ListItem } from "@rneui/themed";
 import React, { useState } from "react";
 import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { useSelector, useDispatch } from "react-redux";
+import { removePartner } from "../../../state/reducers/userReducer";
+import { User } from "../../../types/User";
 
 const SettingsScreen = ({ navigation }) => {
-  const [user, setUser] = useState({
-    name: "רביד רפאלוב",
-    id: 325310902,
-    organization: "אירית עיצובים",
-    parters: [
-      {
-        name: "רביד רפאלוב",
-        id: 325310902,
-        organization: "אירית עיצובים",
-        image: "https://randomuser.me/api/portraits/men/36.jpg",
-      },
-      {
-        name: "רביד רפאלוב",
-        id: 325310902,
-        organization: "אירית עיצובים",
-        image: "https://randomuser.me/api/portraits/men/36.jpg",
-      },
-    ],
-  });
+  const user: User = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   return (
     <View style={styles.container}>
@@ -35,6 +21,8 @@ const SettingsScreen = ({ navigation }) => {
           <Ionicons name={"close"} color={"#5A97C2"} size={35} />
         </TouchableOpacity>
       </View>
+
+      <Divider style={{ marginTop: 10, padding: 2 }} />
 
       <View style={styles.innerContainer}>
         <Avatar
@@ -50,17 +38,17 @@ const SettingsScreen = ({ navigation }) => {
               borderColor: "#5A97C2",
               borderWidth: 1,
             }}
-            onPress={() => {}}
             color={"#5A97C2"}
           />
         </Avatar>
 
         <TouchableOpacity
-          style={styles.addPartnerBtn}
+          style={styles.btn}
           onPress={() => navigation.navigate("AddPartners")}
+          disabled={user.partners.length === 2}
         >
           <Text style={styles.btnText}>הוספת שותפים</Text>
-          <Ionicons name={"person-add-outline"} size={24} />
+          <Ionicons name={"person-add-outline"} size={20} />
         </TouchableOpacity>
 
         <View style={styles.section}>
@@ -73,32 +61,41 @@ const SettingsScreen = ({ navigation }) => {
           >{`ארגון: ${user.organization}`}</Text>
         </View>
 
-        <View style={styles.section}>
-          <Text style={styles.sectionHeader}>שותפים</Text>
-          <Divider color="#5A97C2" width={1} />
-          {user.parters.map((partner, index) => (
-            <View style={styles.partner}>
-              <Avatar
-                size={30}
-                rounded
-                source={{
-                  uri: "https://randomuser.me/api/portraits/women/57.jpg",
-                }}
-                containerStyle={{ backgroundColor: "white" }}
-              />
-              <View style={{ paddingRight: 5 }}>
-                <Text>{partner.name}</Text>
+        {user.partners.length > 0 && (
+          <View style={styles.section}>
+            <Text style={styles.sectionHeader}>שותפים</Text>
+            <Divider color="#5A97C2" width={1} />
+            {user.partners.map((partner, index) => (
+              <View style={styles.partner}>
+                <Avatar
+                  size={30}
+                  rounded
+                  source={{
+                    uri: "https://randomuser.me/api/portraits/women/57.jpg",
+                  }}
+                  containerStyle={{ backgroundColor: "white" }}
+                />
+                <View style={{ paddingRight: 5 }}>
+                  <Text>{partner.name}</Text>
+                </View>
+                <Icon
+                  name={"remove-circle-outline"}
+                  type="ionicon"
+                  color={"red"}
+                  size={20}
+                  onPress={() => dispatch(removePartner(partner.id))}
+                />
               </View>
-              <Icon
-                name={"remove-circle-outline"}
-                type="ionicon"
-                color={"red"}
-                size={20}
-                onPress={() => {}}
-              />
-            </View>
-          ))}
-        </View>
+            ))}
+          </View>
+        )}
+        <TouchableOpacity
+          style={styles.btn}
+          onPress={() => navigation.navigate("Login")}
+        >
+          <Text style={styles.btnText}>התנתקות</Text>
+          <Ionicons name="log-out-outline" size={20} />
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -117,15 +114,24 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     paddingVertical: 25,
-    justifyContent: "space-between",
     width: "80%",
     height: "90%",
+  },
+  btn: {
+    flexDirection: "row",
+    backgroundColor: "rgba(90, 154, 230, 1)",
+    paddingHorizontal: 60,
+    paddingVertical: 12,
+    marginTop: 10,
+    borderRadius: 30,
+    alignItems: "center",
   },
   section: {
     backgroundColor: "#f0f0f0",
     borderRadius: 10,
     padding: 20,
     alignSelf: "stretch",
+    marginVertical: 15,
   },
   sectionHeader: {
     fontSize: 16,
@@ -135,7 +141,7 @@ const styles = StyleSheet.create({
   contentText: {
     textAlign: "right",
     fontSize: 16,
-    marginBottom: 5,
+    marginVertical: 5,
   },
   header: {
     flexDirection: "row",
@@ -169,6 +175,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#5A97C2",
     borderRadius: 5,
     padding: 3,
+    marginVertical: 20,
     alignItems: "center",
   },
   partner: {

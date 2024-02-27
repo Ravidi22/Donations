@@ -66,95 +66,126 @@ const NewAddressScreen = ({ navigation }) => {
   const [note, setNote] = useState("");
 
   return (
-    <ScrollView style={{ paddingVertical: 40, paddingHorizontal: 20 }}>
-      <View>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>כתובת חדשה</Text>
+        <TouchableOpacity
+          style={styles.goBackBtn}
+          onPress={() => navigation.goBack()}
         >
-          <Button title="שמור" type="clear" />
-          <Text style={{ fontSize: 20, fontWeight: "bold" }}>כתובת</Text>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Ionicons name={"close"} color={"black"} size={30} />
-          </TouchableOpacity>
-        </View>
-        <Divider style={{ padding: 2 }} />
-        <View style={{ padding: 10 }}>
-          <TimeView date={date} time={time} />
-          <TextInput
-            mode="outlined"
-            label={"קומה"}
-            value={location.name.toString()}
-            onChangeText={(text) => handleInputChange("name", text)}
-            keyboardType="numeric"
-            style={{ direction: "rtl", textAlign: "right" }}
-          />
-          <TextInput
-            mode="outlined"
-            label={"כתובת"}
-            value={location.address.toString()}
-            onChangeText={(text) => handleInputChange("address", text)}
-            keyboardType="numeric"
-            style={{ direction: "rtl", textAlign: "right" }}
-          />
-          <ButtonGroup
-            buttons={["בית כנסת", "בניין", "קרקע"]}
-            selectedIndex={selectedIndex}
-            onPress={(value) => setSelectedIndex(value)}
-            containerStyle={{ marginBottom: 20, borderRadius: 20 }}
-          />
-          {selectedIndex === 0 && (
-            <SynagogueInput
-              location={location as Synagogue}
-              handleInputChange={handleInputChange}
-              handleDeletePrayerTime={handleDeletePrayerTime}
-            />
-          )}
-          {selectedIndex === 1 && (
-            <BuildingInput
-              location={location as Building}
-              handleInputChange={handleInputChange}
-            />
-          )}
-          {selectedIndex === 2 && (
-            <PrivateHouseInput
-              location={location as PrivateHouse}
-              handleInputChange={handleInputChange}
-            />
-          )}
-
-          <TextInput
-            mode="outlined"
-            label={"סכום תרומה"}
-            value={donation}
-            onChangeText={setDonation}
-            keyboardType="numeric"
-            style={{
-              direction: "rtl",
-              textAlign: "right",
-              marginVertical: 5,
-            }}
-          />
-          <TextInput
-            mode="outlined"
-            label={"הערה"}
-            value={note}
-            onChangeText={setNote}
-            style={{
-              direction: "rtl",
-              textAlign: "right",
-              marginVertical: 5,
-            }}
-          />
-        </View>
+          <Ionicons name={"close"} color={"#5A97C2"} size={35} />
+        </TouchableOpacity>
       </View>
-    </ScrollView>
+
+      <View style={styles.innerContainer}>
+        <TimeView date={date} time={time} />
+        <TextInput
+          mode="outlined"
+          label={"קומה"}
+          value={location.name.toString()}
+          onChangeText={(text) => handleInputChange("name", text)}
+          keyboardType="numeric"
+          style={{ direction: "rtl", textAlign: "right" }}
+        />
+        <TextInput
+          mode="outlined"
+          label={"כתובת"}
+          value={location.address.toString()}
+          onChangeText={(text) => handleInputChange("address", text)}
+          keyboardType="numeric"
+          style={{ direction: "rtl", textAlign: "right" }}
+        />
+        <ButtonGroup
+          buttons={["בית כנסת", "בניין", "קרקע"]}
+          selectedIndex={selectedIndex}
+          onPress={(value) => setSelectedIndex(value)}
+          containerStyle={{ marginVertical: 20, borderRadius: 20 }}
+        />
+        {selectedIndex === 0 && (
+          <SynagogueInput
+            location={location as Synagogue}
+            handleInputChange={handleInputChange}
+            handleDeletePrayerTime={handleDeletePrayerTime}
+          />
+        )}
+        {selectedIndex === 1 && (
+          <BuildingInput
+            location={location as Building}
+            handleInputChange={handleInputChange}
+          />
+        )}
+        {selectedIndex === 2 && (
+          <PrivateHouseInput
+            location={location as PrivateHouse}
+            handleInputChange={handleInputChange}
+          />
+        )}
+
+        <TextInput
+          mode="outlined"
+          label={"סכום תרומה"}
+          value={donation}
+          onChangeText={setDonation}
+          keyboardType="numeric"
+          style={{
+            direction: "rtl",
+            textAlign: "right",
+            marginVertical: 5,
+          }}
+        />
+        <TextInput
+          mode="outlined"
+          label={"הערה"}
+          value={note}
+          onChangeText={setNote}
+          style={{
+            direction: "rtl",
+            textAlign: "right",
+            marginVertical: 5,
+          }}
+        />
+      </View>
+    </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    paddingTop: 40,
+    backgroundColor: "white",
+  },
+  goBackBtn: {
+    position: "absolute",
+    right: 20,
+    backgroundColor: "rgba(200, 200, 200, 0.2)",
+    borderRadius: 10,
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    position: "relative",
+    paddingTop: 30,
+  },
+  headerText: {
+    fontSize: 16,
+    fontWeight: "500",
+    position: "absolute",
+    width: "100%",
+    textAlign: "center",
+  },
+  innerContainer: {
+    flexDirection: "column",
+    alignItems: "stretch",
+    paddingVertical: 25,
+    width: "80%",
+    height: "90%",
+  },
+});
 
 export default NewAddressScreen;

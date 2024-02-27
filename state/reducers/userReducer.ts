@@ -1,15 +1,29 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { User } from "../../types/User";
 
-const initialState = {
-  items: [],
+const initialState: User = {
+  name: "רביד רפאלוב",
+  id: 325310902,
+  organization: "אירית עיצובים",
+  partners: [],
 };
 
 const userSlice = createSlice({
-  name: "route",
+  name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    addPartner: (state, action) => {
+      state.partners.push(action.payload);
+    },
+    removePartner: (state, action) => {
+      const addressIdToRemove = action.payload;
+      state.partners = state.partners.filter(
+        (user) => user.id !== addressIdToRemove
+      );
+    },
+  },
 });
 
-export const {} = userSlice.actions;
+export const { addPartner, removePartner } = userSlice.actions;
 
 export default userSlice.reducer;

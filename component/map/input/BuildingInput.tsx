@@ -14,7 +14,7 @@ const BuildingInput = (props: BuildingProps) => {
       style={{
         direction: "rtl",
         flexDirection: "row",
-        justifyContent: "space-around",
+        justifyContent: "space-between",
       }}
     >
       <TextInput
@@ -23,7 +23,7 @@ const BuildingInput = (props: BuildingProps) => {
         value={props.location.floor.toString()}
         onChangeText={(text) => props.handleInputChange("floor", text)}
         keyboardType="numeric"
-        style={{ direction: "rtl", textAlign: "right" }}
+        style={{ direction: "rtl", textAlign: "right", width: 120 }}
       />
       <TextInput
         mode="outlined"
@@ -31,7 +31,7 @@ const BuildingInput = (props: BuildingProps) => {
         value={props.location.apartment.toString()}
         onChangeText={(text) => props.handleInputChange("apartment", text)}
         keyboardType="numeric"
-        style={{ direction: "rtl", textAlign: "right" }}
+        style={{ direction: "rtl", textAlign: "right", width: 120 }}
       />
     </View>
   );

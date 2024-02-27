@@ -1,6 +1,7 @@
 import { LocationType } from "../../../types/LocationsUtils";
 
 export const initialsLocation: LocationType = {
+  id: 1,
   name: "",
   address: "",
   avgDonations: 0,

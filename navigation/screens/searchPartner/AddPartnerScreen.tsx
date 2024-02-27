@@ -7,16 +7,44 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import { Users } from "../../../types/User";
+import { User, Users } from "../../../types/User";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { Searchbar } from "react-native-paper";
+import { Searchbar, Snackbar } from "react-native-paper";
+import { useDispatch, useSelector } from "react-redux";
+import { addPartner } from "../../../state/reducers/userReducer";
 
 const AddPartnerScreen = ({ navigation }) => {
+  const user: User = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
   const [searchQuery, setSearchQuery] = useState("");
+  const [visible, setVisible] = useState(false);
+
+  const onToggleSnackBar = () => setVisible(!visible);
+
+  const onDismissSnackBar = () => setVisible(false);
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
+        <Snackbar
+          visible={visible}
+          onDismiss={onDismissSnackBar}
+          onIconPress={onDismissSnackBar}
+          wrapperStyle={styles.snackBarContainer}
+          style={{ backgroundColor: "#9ccc65" }}
+        >
+          <View style={styles.snackBarInnerContainer}>
+            <Ionicons
+              name={"checkmark-done-outline"}
+              color={"white"}
+              size={20}
+            />
+            <Text style={{ color: "white", paddingLeft: 10 }}>
+              הזמנה נשלחה בהצלחה
+            </Text>
+          </View>
+        </Snackbar>
         <Text style={styles.headerText}>פרופיל מתרים</Text>
         <TouchableOpacity
           style={styles.goBackBtn}
@@ -38,10 +66,13 @@ const AddPartnerScreen = ({ navigation }) => {
         inputStyle={{ textAlign: "right" }}
       />
       <ScrollView>
-        {Users.filter((user) =>
-          user.name.toLowerCase().includes(searchQuery.toLowerCase())
-        ).map((user, index) => (
+        {Users.filter(
+          (partner: User) =>
+            user.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+            !user.partners.includes(partner.id)
+        ).map((partner, index) => (
           <View
+            key={partner.id}
             style={{
               flexDirection: "row-reverse",
               alignItems: "center",
@@ -58,7 +89,7 @@ const AddPartnerScreen = ({ navigation }) => {
                 containerStyle={{ backgroundColor: "white" }}
               />
               <View style={{ paddingRight: 5 }}>
-                <Text>{user.name}</Text>
+                <Text>{partner.name}</Text>
               </View>
             </View>
 
@@ -67,7 +98,10 @@ const AddPartnerScreen = ({ navigation }) => {
               type="ionicon"
               color={"green"}
               size={20}
-              onPress={() => {}}
+              onPress={() => {
+                if (user.partners.length < 2) dispatch(addPartner(user));
+                onToggleSnackBar();
+              }}
             />
           </View>
         ))}
@@ -111,6 +145,23 @@ const styles = StyleSheet.create({
     flexDirection: "row-reverse",
     alignItems: "center",
     padding: 5,
+  },
+  snackBarContainer: {
+    paddingTop: 20,
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 2,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    direction: "rtl",
+  },
+  snackBarInnerContainer: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
 
