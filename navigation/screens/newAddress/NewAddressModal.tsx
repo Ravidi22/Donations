@@ -104,13 +104,7 @@ const NewAddressScreen = ({ navigation }) => {
             onChangeText={(text) => handleInputChange("name", text)}
             style={{ direction: "rtl", textAlign: "right" }}
           />
-          <TextInput
-            mode="outlined"
-            label={"עיר"}
-            value={newAddress.address.toString()}
-            onChangeText={(text) => handleInputChange("city", text)}
-            style={{ direction: "rtl", textAlign: "right" }}
-          />
+
           <TextInput
             mode="outlined"
             label={"כתובת"}

@@ -7,15 +7,13 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import { User, Users } from "../../../types/User";
+import { Users } from "../../../types/User";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Searchbar, Snackbar } from "react-native-paper";
-import { useDispatch, useSelector } from "react-redux";
 import { addPartner } from "../../../state/reducers/userReducer";
-import { RootState } from "../../../state/store";
+import { useDispatch } from "react-redux";
 
 const AddPartnerScreen = ({ navigation }) => {
-  const user: User = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -67,8 +65,8 @@ const AddPartnerScreen = ({ navigation }) => {
         inputStyle={{ textAlign: "right" }}
       />
       <ScrollView>
-        {Users.filter((partner: User) =>
-          partner.name.toLowerCase().includes(searchQuery.toLowerCase())
+        {Users.filter((user) =>
+          user.name.toLowerCase().includes(searchQuery.toLowerCase())
         ).map((partner, index) => (
           <View
             key={partner.id}
@@ -98,7 +96,7 @@ const AddPartnerScreen = ({ navigation }) => {
               color={"green"}
               size={20}
               onPress={() => {
-                if (user.partners.length < 2) dispatch(addPartner(user));
+                dispatch(addPartner(partner));
                 onToggleSnackBar();
               }}
             />
