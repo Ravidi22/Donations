@@ -5,7 +5,9 @@ export interface BaseLocation {
   name: string;
   city: string;
   address: string;
+  donation: number;
   avgDonations: number;
+  isVisited: boolean;
   note: string;
 }
 
@@ -35,18 +37,22 @@ export const LocationsList: LocationType[] = [
     name: "דני רביד",
     city: "אשדוד",
     address: "האלמוגים 24",
+    donation: 0,
     avgDonations: 100,
     note: "שער סגור לבוא מסביב",
     floor: 1,
+    isVisited: false,
     apartment: 4,
   },
   {
     id: 2,
     name: "אהרון אהרוני",
     city: "אשדוד",
+    donation: 0,
     address: "רחוב המשוררים 3",
     avgDonations: 250,
     note: "ליד הסופרמרקט",
+    isVisited: false,
     entrance: "כניסה א",
   },
   {
@@ -54,8 +60,10 @@ export const LocationsList: LocationType[] = [
     name: "בית כנסת הגדול",
     city: "אשדוד",
     address: "שדרות הרצל 45",
+    donation: 0,
     avgDonations: 500,
     note: "פתח מזרחי",
+    isVisited: false,
     prayers: {
       morning: ["06:00"],
       afternoon: ["13:00"],

@@ -5,32 +5,29 @@ import ZoomInOut from "../../../../component/map/ZoomInOut";
 import { useLocationWatcher } from "../../../../state/hooks/useLocationWatcher";
 import { DraggableBottomSheet } from "./DraggableBottomSheet ";
 import { Icon } from "@rneui/themed";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../../state/store";
 import { getDirections } from "../MapMenager";
+import { useRouteStore } from "../../../../state/stores/useRouteStore";
 
 const MapContainer = ({ navigation }) => {
-  const route = useSelector((state: RootState) => state.route.route);
-  const dispatch = useDispatch();
+  const route = useRouteStore((state) => state.route);
 
   const mapRef = useRef(null);
   const { location, errorMsg } = useLocationWatcher(mapRef);
   const [routeCoordinates, setRouteCoordinates] = useState([]);
 
-  useMemo(() => {
-    if (route.length >= 2) {
-      const start = route[0].address;
-      const destination = route[route.length - 1].address;
-      const waypoints = route.slice(1, -1).map((location) => location.address); // Extract addresses as waypoints, excluding first and last
+  // useMemo(() => {
+  //   if (route.length >= 2) {
+  //     const start = route[0].address;
+  //     const destination = route[route.length - 1].address;
+  //     const waypoints = route.slice(1, -1).map((location) => location.address);
 
-      getDirections(start, destination, waypoints)
-        .then((decodedPolyline) => {
-          // Assuming getDirections returns decoded polyline points
-          setRouteCoordinates(decodedPolyline);
-        })
-        .catch((error) => console.error(error));
-    }
-  }, [route]);
+  //     getDirections(start, destination, waypoints)
+  //       .then((decodedPolyline) => {
+  //         setRouteCoordinates(decodedPolyline);
+  //       })
+  //       .catch((error) => console.error(error));
+  //   }
+  // }, [route]);
 
   return (
     <View style={styles.container}>

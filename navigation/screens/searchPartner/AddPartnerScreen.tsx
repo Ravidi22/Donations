@@ -10,11 +10,11 @@ import {
 import { Users } from "../../../types/User";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Searchbar, Snackbar } from "react-native-paper";
-import { addPartner } from "../../../state/reducers/userReducer";
-import { useDispatch } from "react-redux";
+import { useUserStore } from "../../../state/stores/useUserStore";
 
 const AddPartnerScreen = ({ navigation }) => {
-  const dispatch = useDispatch();
+  const addPartner = useUserStore((state) => state.addPartner);
+  const user = useUserStore((state) => state.user);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [visible, setVisible] = useState(false);
@@ -96,7 +96,7 @@ const AddPartnerScreen = ({ navigation }) => {
               color={"green"}
               size={20}
               onPress={() => {
-                dispatch(addPartner(partner));
+                addPartner(partner);
                 onToggleSnackBar();
               }}
             />

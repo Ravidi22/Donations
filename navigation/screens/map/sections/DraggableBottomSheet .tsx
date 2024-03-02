@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -8,17 +8,15 @@ import {
 import { PanGestureHandler } from "react-native-gesture-handler";
 import Animated, { useAnimatedStyle } from "react-native-reanimated";
 import Timeline from "../../../../component/map/timeLine/Timeline";
-import { LocationsList } from "../../../../types/LocationsUtils";
 import { Button } from "@rneui/base";
 import { useDraggableGestureHandler } from "../../../../state/hooks/useDraggableGestureHandler";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../../state/store";
+import { useRouteStore } from "../../../../state/stores/useRouteStore";
 
 const screenHeight = Dimensions.get("window").height;
 
 export const DraggableBottomSheet = () => {
-  const route = useSelector((state: RootState) => state.route);
-  const dispatch = useDispatch();
+  const fetchRoute = useRouteStore((state) => state.fetchRoute);
+  const route = useRouteStore((state) => state.route);
 
   const { height, gestureHandler } = useDraggableGestureHandler(
     150,
@@ -40,7 +38,9 @@ export const DraggableBottomSheet = () => {
     }
   };
 
-  const fetchRoute = () => {};
+  // useEffect(() => {
+  //   fetchRoute();
+  // }, [fetchRoute]);
 
   return (
     <PanGestureHandler onGestureEvent={gestureHandler}>
@@ -50,7 +50,7 @@ export const DraggableBottomSheet = () => {
             <View style={styles.dragItem} />
           </TouchableWithoutFeedback>
           {route !== undefined ? (
-            <Timeline {...route} />
+            <Timeline route={route} />
           ) : (
             <Button
               title="קבלת נתיב"

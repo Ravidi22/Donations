@@ -6,81 +6,111 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
-import { Button, ButtonGroup, Divider, Icon } from "@rneui/themed";
+import { ButtonGroup } from "@rneui/themed";
 import { TextInput } from "react-native-paper";
 import TimeView from "../../../component/map/TimeAndDate";
 import useCurrentDateTime from "../../../state/hooks/useCurrentDateTime";
 import {
-  BaseLocation,
   Building,
-  PrayersType,
+  LocationType,
   PrivateHouse,
   Synagogue,
 } from "../../../types/LocationsUtils";
 import PrivateHouseInput from "../../../component/map/input/PrivateHouseInput";
 import SynagogueInput from "../../../component/map/input/SynagogueInput";
 import BuildingInput from "../../../component/map/input/BuildingInput";
-import { initialsLocation } from "./InputOptions";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../state/store";
-import { addAddress } from "../../../state/reducers/routeReducer";
+
+import { useRouteStore } from "../../../state/stores/useRouteStore";
 
 const NewAddressScreen = ({ navigation }) => {
-  const route = useSelector((state: RootState) => state.route);
-  const dispatch = useDispatch();
+  const addAddress = useRouteStore((state) => state.addAddress);
+  const route = useRouteStore((state) => state.route);
 
   const { date, time } = useCurrentDateTime();
 
   const [selectedIndex, setSelectedIndex] = useState<number>(2);
 
-  const [newAddress, setNewAddress] = useState<
-    BaseLocation | PrivateHouse | Building | Synagogue
-  >(initialsLocation);
+  const [baseLocation, setBaseLocation] = useState({
+    name: "",
+    city: "",
+    address: "",
+    donation: 0,
+    avgDonations: 0,
+    note: "",
+    isVisited: false,
+  });
 
-  const handleInputChange = (
-    name: string,
-    value: string | number | string[],
-    field?: PrayersType
-  ) => {
-    setNewAddress((prev: Synagogue) => {
-      if (field) {
-        return {
-          ...prev,
-          prayers: {
-            ...prev.prayers,
-            [field]: [...prev.prayers[field], value],
-          },
-        };
-      }
+  const [privateHouseDetails, setPrivateHouseDetails] = useState({
+    ...baseLocation,
+    entrance: "",
+  });
 
-      return { ...prev, [name]: value };
-    });
-  };
+  const [buildingDetails, setBuildingDetails] = useState({
+    ...baseLocation,
+    floor: 0,
+    apartment: 0,
+  });
 
-  const handleDeletePrayerTime = (type: PrayersType, index: number) => {
-    setNewAddress((prev: Synagogue) => ({
+  const [synagogueDetails, setSynagogueDetails] = useState({
+    ...baseLocation,
+    prayers: { morning: [], afternoon: [], evening: [] },
+  });
+
+  const handleBaseInputChange = (field, value) => {
+    setBaseLocation((prev) => ({
       ...prev,
-      prayers: {
-        ...prev.prayers,
-        [type]: prev.prayers[type].filter((_, i) => i !== index),
-      },
+      [field]: value,
     }));
   };
 
-  const isAddressValid = (): boolean => {
-    return true;
-  };
-
-  const handleAddAddress = () => {
-    if (isAddressValid()) {
-      dispatch(addAddress(newAddress));
-      navigation.navigate("Home");
+  const handleSpecificInputChange = (field, value) => {
+    switch (selectedIndex) {
+      case 0:
+        setSynagogueDetails((prev) => ({
+          ...prev,
+          [field]: value,
+          ...baseLocation,
+        }));
+        break;
+      case 1:
+        setBuildingDetails((prev) => ({
+          ...prev,
+          [field]: value,
+          ...baseLocation,
+        }));
+        break;
+      case 2:
+        setPrivateHouseDetails((prev) => ({
+          ...prev,
+          [field]: value,
+          ...baseLocation,
+        }));
+        break;
+      default:
+        break;
     }
   };
 
-  const [donation, setDonation] = useState("");
-  const [note, setNote] = useState("");
+  const isAddressValid = (newAddress): boolean => {
+    return true;
+  };
+
+  const getNewAddress = (): LocationType => {
+    if (selectedIndex === 0) {
+      return synagogueDetails as Synagogue;
+    } else if (selectedIndex === 1) {
+      return buildingDetails as Building;
+    }
+    return privateHouseDetails as PrivateHouse;
+  };
+
+  const handleAddAddress = () => {
+    if (isAddressValid(getNewAddress())) {
+      addAddress(getNewAddress());
+      navigation.navigate("Home");
+    }
+  };
 
   return (
     <ScrollView style={{ backgroundColor: "white" }}>
@@ -100,16 +130,16 @@ const NewAddressScreen = ({ navigation }) => {
           <TextInput
             mode="outlined"
             label={"שם"}
-            value={newAddress.name.toString()}
-            onChangeText={(text) => handleInputChange("name", text)}
+            value={baseLocation.name.toString()}
+            onChangeText={(text) => handleBaseInputChange("name", text)}
             style={{ direction: "rtl", textAlign: "right" }}
           />
 
           <TextInput
             mode="outlined"
             label={"כתובת"}
-            value={newAddress.address.toString()}
-            onChangeText={(text) => handleInputChange("address", text)}
+            value={baseLocation.address.toString()}
+            onChangeText={(text) => handleBaseInputChange("address", text)}
             style={{ direction: "rtl", textAlign: "right" }}
           />
           <ButtonGroup
@@ -120,29 +150,29 @@ const NewAddressScreen = ({ navigation }) => {
           />
           {selectedIndex === 0 && (
             <SynagogueInput
-              location={newAddress as Synagogue}
-              handleInputChange={handleInputChange}
-              handleDeletePrayerTime={handleDeletePrayerTime}
+              location={synagogueDetails as Synagogue}
+              handleInputChange={handleSpecificInputChange}
+              handleDeletePrayerTime={() => {}}
             />
           )}
           {selectedIndex === 1 && (
             <BuildingInput
-              location={newAddress as Building}
-              handleInputChange={handleInputChange}
+              location={buildingDetails as Building}
+              handleInputChange={handleSpecificInputChange}
             />
           )}
           {selectedIndex === 2 && (
             <PrivateHouseInput
-              location={newAddress as PrivateHouse}
-              handleInputChange={handleInputChange}
+              location={privateHouseDetails as PrivateHouse}
+              handleInputChange={handleSpecificInputChange}
             />
           )}
 
           <TextInput
             mode="outlined"
             label={"סכום תרומה"}
-            value={donation}
-            onChangeText={setDonation}
+            value={baseLocation.donation.toString()}
+            onChangeText={(text) => handleBaseInputChange("donation", text)}
             keyboardType="numeric"
             style={{
               direction: "rtl",
@@ -153,8 +183,8 @@ const NewAddressScreen = ({ navigation }) => {
           <TextInput
             mode="outlined"
             label={"הערה"}
-            value={note}
-            onChangeText={setNote}
+            value={baseLocation.note.toString()}
+            onChangeText={(text) => handleBaseInputChange("note", text)}
             style={{
               direction: "rtl",
               textAlign: "right",

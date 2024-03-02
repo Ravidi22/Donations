@@ -1,15 +1,12 @@
 import { Avatar, Divider, Icon, ListItem } from "@rneui/themed";
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { useSelector, useDispatch } from "react-redux";
-import { removePartner } from "../../../state/reducers/userReducer";
-import { User } from "../../../types/User";
-import { RootState } from "../../../state/store";
+import { useUserStore } from "../../../state/stores/useUserStore";
 
 const SettingsScreen = ({ navigation }) => {
-  const user: User = useSelector((state: RootState) => state.user);
-  const dispatch = useDispatch();
+  const removePartner = useUserStore((state) => state.removePartner);
+  const user = useUserStore((state) => state.user);
 
   return (
     <View style={styles.container}>
@@ -84,7 +81,7 @@ const SettingsScreen = ({ navigation }) => {
                   type="ionicon"
                   color={"red"}
                   size={20}
-                  onPress={() => dispatch(removePartner(partner.id))}
+                  onPress={() => removePartner(partner.id)}
                 />
               </View>
             ))}
