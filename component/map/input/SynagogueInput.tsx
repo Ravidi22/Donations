@@ -17,7 +17,7 @@ interface SynagogueInputProps {
   handleInputChange: (
     name: string,
     value: string | number | string[],
-    field?: PrayersType
+    field: PrayersType
   ) => void;
   handleDeletePrayerTime: (type: PrayersType, index: number) => void;
 }
@@ -42,6 +42,7 @@ const SynagogueInput = (props: SynagogueInputProps) => {
   const onCancel = () => {
     setModalVisible(false);
   };
+
   const onConfirm = () => {
     props.handleInputChange(
       "prayers",

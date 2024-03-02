@@ -14,7 +14,6 @@ const PrivateHouseInput = (props: PrivateHouseInputProps) => {
       label={"כניסה"}
       value={props.location.entrance}
       onChangeText={(text) => props.handleInputChange("entrance", text)}
-      keyboardType="numeric"
       style={{ direction: "rtl", textAlign: "right" }}
     />
   );

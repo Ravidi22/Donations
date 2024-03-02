@@ -19,7 +19,15 @@ const AddPartnerScreen = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [visible, setVisible] = useState(false);
 
-  const onToggleSnackBar = () => setVisible(!visible);
+  const [msg, setMsg] = useState("הזמנה נשלחה בהצלחה");
+
+  const [isError, setIsError] = useState(false);
+
+  const onToggleSnackBar = (isError: boolean, error?: string) => {
+    setIsError(isError);
+    setMsg(isError ? error : "הזמנה נשלחה בהצלחה");
+    setVisible(!visible);
+  };
 
   const onDismissSnackBar = () => setVisible(false);
 
@@ -31,17 +39,18 @@ const AddPartnerScreen = ({ navigation }) => {
           onDismiss={onDismissSnackBar}
           onIconPress={onDismissSnackBar}
           wrapperStyle={styles.snackBarContainer}
-          style={{ backgroundColor: "#9ccc65" }}
+          style={{
+            backgroundColor: isError ? "#f44336" : "#9ccc65",
+          }}
         >
           <View style={styles.snackBarInnerContainer}>
-            <Ionicons
-              name={"checkmark-done-outline"}
+            <Icon
+              name={isError ? "error-outline" : "mark-email-read"}
+              type="material"
               color={"white"}
               size={20}
             />
-            <Text style={{ color: "white", paddingLeft: 10 }}>
-              הזמנה נשלחה בהצלחה
-            </Text>
+            <Text style={{ color: "white", paddingLeft: 10 }}>{msg}</Text>
           </View>
         </Snackbar>
         <Text style={styles.headerText}>פרופיל מתרים</Text>
@@ -65,8 +74,10 @@ const AddPartnerScreen = ({ navigation }) => {
         inputStyle={{ textAlign: "right" }}
       />
       <ScrollView>
-        {Users.filter((user) =>
-          user.name.toLowerCase().includes(searchQuery.toLowerCase())
+        {Users.filter(
+          (OrgUser) =>
+            OrgUser.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+            !user.partners.includes(OrgUser)
         ).map((partner, index) => (
           <View
             key={partner.id}
@@ -93,11 +104,15 @@ const AddPartnerScreen = ({ navigation }) => {
             <Icon
               name={"person-add-outline"}
               type="ionicon"
-              color={"green"}
+              color={"#9ccc65"}
               size={20}
               onPress={() => {
-                addPartner(partner);
-                onToggleSnackBar();
+                if (user.partners.length < 2) {
+                  addPartner(partner);
+                  onToggleSnackBar(false);
+                } else {
+                  onToggleSnackBar(true, "ניתן להזמין רק 2 שותפים");
+                }
               }}
             />
           </View>

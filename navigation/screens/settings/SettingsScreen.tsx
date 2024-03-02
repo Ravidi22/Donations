@@ -87,13 +87,15 @@ const SettingsScreen = ({ navigation }) => {
             ))}
           </View>
         )}
-        <TouchableOpacity
-          style={styles.btn}
-          onPress={() => navigation.navigate("Login")}
-        >
-          <Text style={styles.btnText}>התנתקות</Text>
-          <Ionicons name="log-out-outline" size={20} />
-        </TouchableOpacity>
+        <View style={{ position: "absolute", bottom: 10 }}>
+          <TouchableOpacity
+            style={styles.btn}
+            onPress={() => navigation.navigate("Login")}
+          >
+            <Text style={styles.btnText}>התנתקות</Text>
+            <Ionicons name="log-out-outline" size={20} />
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );

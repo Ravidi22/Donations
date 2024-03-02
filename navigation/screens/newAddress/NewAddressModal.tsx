@@ -13,6 +13,7 @@ import useCurrentDateTime from "../../../state/hooks/useCurrentDateTime";
 import {
   Building,
   LocationType,
+  PrayersType,
   PrivateHouse,
   Synagogue,
 } from "../../../types/LocationsUtils";
@@ -64,34 +65,53 @@ const NewAddressScreen = ({ navigation }) => {
     }));
   };
 
-  const handleSpecificInputChange = (field, value) => {
-    switch (selectedIndex) {
-      case 0:
-        setSynagogueDetails((prev) => ({
-          ...prev,
-          [field]: value,
-          ...baseLocation,
-        }));
-        break;
-      case 1:
-        setBuildingDetails((prev) => ({
-          ...prev,
-          [field]: value,
-          ...baseLocation,
-        }));
-        break;
-      case 2:
-        setPrivateHouseDetails((prev) => ({
-          ...prev,
-          [field]: value,
-          ...baseLocation,
-        }));
-        break;
-      default:
-        break;
-    }
+  const handlePrivateHouseInputChange = (field, value) => {
+    setPrivateHouseDetails((prev) => ({
+      ...prev,
+      [field]: value,
+      ...baseLocation,
+    }));
   };
 
+  const handleBuildingInputChange = (field, value) => {
+    setBuildingDetails((prev) => ({
+      ...prev,
+      [field]: value,
+      ...baseLocation,
+    }));
+  };
+
+  const handlePrayersInputChange = (
+    name: string,
+    value: string | number | string[],
+    field: PrayersType
+  ) => {
+    setSynagogueDetails((prev) => {
+      if (field) {
+        return {
+          ...prev,
+          prayers: {
+            ...prev.prayers,
+            [field]: [...prev.prayers[field], value],
+            ...baseLocation,
+          },
+        };
+      }
+
+      return { ...prev, [name]: value };
+    });
+  };
+
+  const handleDeletePrayerTime = (field: PrayersType, index: number) => {
+    setSynagogueDetails((prev) => ({
+      ...prev,
+      prayers: {
+        ...prev.prayers,
+        [field]: prev.prayers[field].filter((_, i) => i !== index),
+        ...baseLocation,
+      },
+    }));
+  };
   const isAddressValid = (newAddress): boolean => {
     return true;
   };
@@ -129,7 +149,7 @@ const NewAddressScreen = ({ navigation }) => {
           <TimeView date={date} time={time} />
           <TextInput
             mode="outlined"
-            label={"שם"}
+            label={"שם מלא"}
             value={baseLocation.name.toString()}
             onChangeText={(text) => handleBaseInputChange("name", text)}
             style={{ direction: "rtl", textAlign: "right" }}
@@ -151,20 +171,20 @@ const NewAddressScreen = ({ navigation }) => {
           {selectedIndex === 0 && (
             <SynagogueInput
               location={synagogueDetails as Synagogue}
-              handleInputChange={handleSpecificInputChange}
-              handleDeletePrayerTime={() => {}}
+              handleInputChange={handlePrayersInputChange}
+              handleDeletePrayerTime={handleDeletePrayerTime}
             />
           )}
           {selectedIndex === 1 && (
             <BuildingInput
               location={buildingDetails as Building}
-              handleInputChange={handleSpecificInputChange}
+              handleInputChange={handleBuildingInputChange}
             />
           )}
           {selectedIndex === 2 && (
             <PrivateHouseInput
               location={privateHouseDetails as PrivateHouse}
-              handleInputChange={handleSpecificInputChange}
+              handleInputChange={handlePrivateHouseInputChange}
             />
           )}
 

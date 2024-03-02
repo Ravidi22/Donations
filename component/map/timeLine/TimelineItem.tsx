@@ -4,6 +4,7 @@ import { Icon } from "@rneui/themed";
 import AddressCard from "../AddressCard";
 import { LocationType } from "../../../types/LocationsUtils";
 import useCurrentDateTime from "../../../state/hooks/useCurrentDateTime";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 interface TimelineItemProps {
   address: LocationType;
@@ -12,8 +13,6 @@ interface TimelineItemProps {
 
 export const TimelineItem = (props: TimelineItemProps) => {
   const [collapsed, setCollapsed] = useState(true);
-
-  const [visited, setVisited] = useState(false);
 
   const { date: currentDate, time: currentTime } = useCurrentDateTime();
   const [date, setDate] = useState(currentDate);
@@ -31,14 +30,24 @@ export const TimelineItem = (props: TimelineItemProps) => {
         display: "flex",
         flexDirection: "column",
         marginBottom: 20,
-        backgroundColor: "rgba(199,199,199, 0.1)",
+        backgroundColor: props.address.isVisited
+          ? "#9ccc65"
+          : "rgba(199,199,199, 0.3)",
         borderRadius: 20,
         padding: 20,
       }}
     >
       <View style={styles.itemContainer}>
         <View style={styles.indexContainer}>
-          <Text style={styles.title}>{props.index + 1}</Text>
+          {!props.address.isVisited ? (
+            <Text style={styles.title}>{props.index + 1}</Text>
+          ) : (
+            <Ionicons
+              name={"checkmark-done-outline"}
+              color={"white"}
+              size={20}
+            />
+          )}
         </View>
         <View style={{ paddingRight: 5 }}>
           <Text style={styles.title}>{`${props.address.name}`}</Text>
@@ -67,9 +76,9 @@ const styles = StyleSheet.create({
   indexContainer: {
     width: 40,
     height: 40,
-    borderRadius: 25,
+    borderRadius: 50,
     borderWidth: 2,
-    borderColor: "gray",
+    borderColor: "white",
     borderStyle: "dotted",
     justifyContent: "center",
     alignItems: "center",

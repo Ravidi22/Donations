@@ -1,8 +1,14 @@
 export type LocationType = PrivateHouse | Building | Synagogue;
 
+export interface GeoCoordinates {
+  latitude: number;
+  longitude: number;
+}
+
 export interface BaseLocation {
   id: number;
   name: string;
+  location: GeoCoordinates;
   city: string;
   address: string;
   donation: number;
@@ -12,7 +18,7 @@ export interface BaseLocation {
 }
 
 export interface PrivateHouse extends BaseLocation {
-  entrance?: string;
+  entrance: string;
 }
 
 export interface Building extends BaseLocation {
@@ -37,19 +43,27 @@ export const LocationsList: LocationType[] = [
     name: "דני רביד",
     city: "אשדוד",
     address: "האלמוגים 24",
+    location: {
+      latitude: 0,
+      longitude: 0,
+    },
     donation: 0,
     avgDonations: 100,
     note: "שער סגור לבוא מסביב",
     floor: 1,
-    isVisited: false,
+    isVisited: true,
     apartment: 4,
   },
   {
     id: 2,
     name: "אהרון אהרוני",
     city: "אשדוד",
-    donation: 0,
     address: "רחוב המשוררים 3",
+    location: {
+      latitude: 0,
+      longitude: 0,
+    },
+    donation: 0,
     avgDonations: 250,
     note: "ליד הסופרמרקט",
     isVisited: false,
@@ -60,6 +74,10 @@ export const LocationsList: LocationType[] = [
     name: "בית כנסת הגדול",
     city: "אשדוד",
     address: "שדרות הרצל 45",
+    location: {
+      latitude: 0,
+      longitude: 0,
+    },
     donation: 0,
     avgDonations: 500,
     note: "פתח מזרחי",
