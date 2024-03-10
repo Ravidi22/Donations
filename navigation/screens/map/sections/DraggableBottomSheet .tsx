@@ -38,10 +38,6 @@ export const DraggableBottomSheet = () => {
     }
   };
 
-  // useEffect(() => {
-  //   fetchRoute();
-  // }, [fetchRoute]);
-
   return (
     <PanGestureHandler onGestureEvent={gestureHandler}>
       <Animated.View style={[styles.sheet, animatedStyle]}>
@@ -49,7 +45,7 @@ export const DraggableBottomSheet = () => {
           <TouchableWithoutFeedback onPress={toggleSheet}>
             <View style={styles.dragItem} />
           </TouchableWithoutFeedback>
-          {route !== undefined ? (
+          {route.length > 0 ? (
             <Timeline route={route} />
           ) : (
             <Button

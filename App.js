@@ -4,7 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import LoginScreen from "./navigation/screens/login/Login";
 import MainScreen from "./navigation/Main";
-import NewAddressScreen from "./navigation/screens/newAddress/NewAddressModal";
+import NewAddressScreen from "./navigation/screens/newAddress/NewAddressScreen";
 import AddPartnerScreen from "./navigation/screens/searchPartner/AddPartnerScreen";
 import SettingsScreen from "./navigation/screens/settings/SettingsScreen";
 
