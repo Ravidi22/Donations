@@ -1,6 +1,6 @@
 import React, { useState, useRef, useMemo } from "react";
 import { StyleSheet, View } from "react-native";
-import MapView, { Polyline } from "react-native-maps";
+import MapView, { LatLng, Polyline } from "react-native-maps";
 import ZoomInOut from "../../../../component/map/ZoomInOut";
 import { useLocationWatcher } from "../../../../state/hooks/useLocationWatcher";
 import { DraggableBottomSheet } from "./DraggableBottomSheet ";
@@ -39,11 +39,12 @@ const MapContainer = ({ navigation }) => {
         showsUserLocation={true}
       >
         <Polyline
-          coordinates={routeCoordinates}
+          coordinates={route.map((address) => address.geoLocation.coordinates)}
           strokeWidth={2}
           strokeColor="red"
         />
       </MapView>
+
       <ZoomInOut mapRef={mapRef} />
 
       <Icon

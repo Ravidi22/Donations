@@ -1,9 +1,9 @@
 import React from "react";
 import { StyleSheet, ScrollView } from "react-native";
 import { TimelineItem } from "./TimelineItem";
-import { LocationType } from "../../../types/LocationsUtils";
+import { BaseAddress } from "../../../types/GeneralTypes";
 
-const Timeline = ({ route }: { route: LocationType[] }) => (
+const Timeline = ({ route }: { route: BaseAddress[] }) => (
   <ScrollView style={styles.container}>
     {route.map((item, index) => (
       <TimelineItem key={index} index={index} address={item} />

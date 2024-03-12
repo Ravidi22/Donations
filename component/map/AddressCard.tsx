@@ -13,35 +13,36 @@ import SynagogueDetails from "./address/SynagogueDetails";
 import BuildingDetails from "./address/BuildingDetails";
 import PrivateHouseDetails from "./address/PrivateHouseDetails";
 import { TextInput } from "react-native-paper";
+import { BaseAddress } from "../../types/GeneralTypes";
 
 interface AddressCardProps extends TimeProps {
-  address: LocationType;
+  address: BaseAddress;
 }
 
 const AddressCard = (props: AddressCardProps) => {
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
 
   useEffect(() => {
-    if (isSynagogue(props.address)) {
-      setSelectedIndex(0);
-    } else if (isBuilding(props.address)) {
-      setSelectedIndex(1);
-    } else {
-      setSelectedIndex(2);
-    }
+    // if (isSynagogue(props.address)) {
+    //   setSelectedIndex(0);
+    // } else if (isBuilding(props.address)) {
+    //   setSelectedIndex(1);
+    // } else {
+    //   setSelectedIndex(2);
+    // }
   }, [props.address]);
 
-  function isSynagogue(address: LocationType): address is Synagogue {
-    return "prayers" in address;
-  }
+  // function isSynagogue(address: LocationType): address is Synagogue {
+  //   return "prayers" in address;
+  // }
 
-  function isBuilding(address: LocationType): address is Building {
-    return "floor" in address && "apartment" in address;
-  }
+  // function isBuilding(address: LocationType): address is Building {
+  //   return "floor" in address && "apartment" in address;
+  // }
 
-  function isPrivateHouse(address: LocationType): address is PrivateHouse {
-    return "entrance" in address;
-  }
+  // function isPrivateHouse(address: LocationType): address is PrivateHouse {
+  //   return "entrance" in address;
+  // }
   const [donation, setDonation] = useState("");
   const [note, setNote] = useState("");
 
@@ -56,7 +57,7 @@ const AddressCard = (props: AddressCardProps) => {
           onPress={(value) => {}}
           containerStyle={{ marginBottom: 20, borderRadius: 20 }}
         />
-        {selectedIndex === 0 && isSynagogue(props.address) && (
+        {/* {selectedIndex === 0 && isSynagogue(props.address) && (
           <SynagogueDetails prayers={props.address.prayers} />
         )}
         {selectedIndex === 1 && isBuilding(props.address) && (
@@ -67,10 +68,10 @@ const AddressCard = (props: AddressCardProps) => {
         )}
         {selectedIndex === 2 && isPrivateHouse(props.address) && (
           <PrivateHouseDetails entrance={props.address.entrance} />
-        )}
-        <View style={styles.rowText}>
-          <Text>{`ממוצע תרומות: ${props.address.avgDonations}`}</Text>
-        </View>
+        )} */}
+        {/* <View style={styles.rowText}>
+          <Text>{`ממוצע תרומות: ${props.address.}`}</Text>
+        </View> */}
         <TextInput
           mode="outlined"
           label={"סכום תרומה"}

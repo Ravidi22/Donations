@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Icon } from "@rneui/themed";
 import AddressCard from "../AddressCard";
-import { LocationType } from "../../../types/LocationsUtils";
 import useCurrentDateTime from "../../../state/hooks/useCurrentDateTime";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { BaseAddress } from "../../../types/GeneralTypes";
 
 interface TimelineItemProps {
-  address: LocationType;
+  address: BaseAddress;
   index: number;
 }
 
@@ -50,8 +50,12 @@ export const TimelineItem = (props: TimelineItemProps) => {
           )}
         </View>
         <View style={{ paddingRight: 5 }}>
-          <Text style={styles.title}>{`${props.address.name}`}</Text>
-          <Text style={styles.subTitle}>{props.address.address}</Text>
+          <Text
+            style={styles.title}
+          >{`${props.address.personalDetails.fullName}`}</Text>
+          <Text style={styles.subTitle}>
+            {props.address.geoLocation.address}
+          </Text>
         </View>
         <Icon
           name={collapsed ? "chevron-down-sharp" : "chevron-up-sharp"}

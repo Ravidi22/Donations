@@ -81,15 +81,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "right",
   },
-  errorInput: {
-    borderColor: "red",
-  },
-  errorText: {
-    color: "red",
-    textAlign: "right",
-    fontSize: 12,
-    marginTop: 5,
-  },
   input: {
     width: "100%",
     marginVertical: 10,

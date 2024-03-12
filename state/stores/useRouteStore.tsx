@@ -1,15 +1,15 @@
 import { create } from "zustand";
-import { LocationType, LocationsList } from "../../types/LocationsUtils";
+import { BaseAddress } from "../../types/GeneralTypes";
 
 interface RouteState {
-  route: LocationType[];
-  addAddress: (address: LocationType) => void;
+  route: BaseAddress[];
+  addAddress: (address: BaseAddress) => void;
   removeAddress: (addressId: number) => void;
   fetchRoute: () => Promise<void>;
 }
 
 const useRouteStore = create<RouteState>((set) => ({
-  route: LocationsList,
+  route: [],
   fetchRoute: async () => {
     try {
       const response = await fetch("https://your-api-endpoint/routes");

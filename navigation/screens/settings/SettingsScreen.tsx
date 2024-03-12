@@ -1,4 +1,4 @@
-import { Avatar, Divider, Icon, ListItem } from "@rneui/themed";
+import { Avatar, Divider, Icon } from "@rneui/themed";
 import React from "react";
 import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";

@@ -1,9 +1,7 @@
-export interface GeoCoordinates {
-  latitude: number;
-  longitude: number;
-}
+import { LatLng } from "react-native-maps";
 
 export interface BaseAddress {
+  id: number;
   geoLocation: GeoLocation;
   personalDetails: PersonalDetails;
   donationDetails: DonationDetails;
@@ -15,7 +13,7 @@ interface GeoLocation {
   city: string;
   address: string;
   houseNumber: number;
-  coordinates: GeoCoordinates;
+  coordinates: LatLng;
 }
 export type Gender = "Male" | "Female" | "Other";
 

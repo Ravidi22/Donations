@@ -116,20 +116,20 @@ const NewAddressScreen = ({ navigation }) => {
     return true;
   };
 
-  const getNewAddress = (): LocationType => {
-    if (selectedIndex === 0) {
-      return synagogueDetails as Synagogue;
-    } else if (selectedIndex === 1) {
-      return buildingDetails as Building;
-    }
-    return privateHouseDetails as PrivateHouse;
-  };
+  // const getNewAddress = (): LocationType => {
+  //   if (selectedIndex === 0) {
+  //     return synagogueDetails as Synagogue;
+  //   } else if (selectedIndex === 1) {
+  //     return buildingDetails as Building;
+  //   }
+  //   return privateHouseDetails as PrivateHouse;
+  // };
 
   const handleAddAddress = () => {
-    if (isAddressValid(getNewAddress())) {
-      addAddress(getNewAddress());
-      navigation.navigate("Home");
-    }
+    // if (isAddressValid(getNewAddress())) {
+    //   addAddress(getNewAddress());
+    //   navigation.navigate("Home");
+    // }
   };
 
   return (
