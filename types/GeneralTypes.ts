@@ -9,15 +9,16 @@ export interface BaseAddress {
   isVisited: boolean;
 }
 
-interface GeoLocation {
+export interface GeoLocation {
   city: string;
   address: string;
   houseNumber: number;
+  addressKind: PrivateHouse | Building | Synagogue;
   coordinates: LatLng;
 }
 export type Gender = "Male" | "Female" | "Other";
 
-interface PersonalDetails {
+export interface PersonalDetails {
   fullName: string;
   age: number;
   gender: Gender;
@@ -25,21 +26,21 @@ interface PersonalDetails {
   phoneNumber: string;
 }
 
-type PaymentOptions = "Cash" | "DirectDebit" | "Credit" | "BankTransfer";
-type PaymentFrequency = "Once" | "Monthly";
+export type PaymentOptions = "Cash" | "DirectDebit" | "Credit" | "BankTransfer";
+export type PaymentFrequency = "Once" | "Monthly";
 
-interface DonationDetails {
+export interface DonationDetails {
   donation: number;
   paymentFrequency: PaymentFrequency;
   payment: PaymentOptions;
   reason?: string;
 }
 
-type InitialRelationship = "Positive" | "Negative" | "Apathetic";
-type Religion = "Religious" | "Traditional" | "Secular";
-type IncomeLevel = "High" | "Mid" | "Low";
+export type InitialRelationship = "Positive" | "Negative" | "Apathetic";
+export type Religion = "Religious" | "Traditional" | "Secular";
+export type IncomeLevel = "High" | "Mid" | "Low";
 
-interface InteractionDetails {
+export interface InteractionDetails {
   initialRelationship: InitialRelationship;
   religion: Religion;
   showedIdentification: boolean;
@@ -47,15 +48,15 @@ interface InteractionDetails {
   incomeLevel: IncomeLevel;
 }
 
-export interface PrivateHouse extends BaseAddress {
+export interface PrivateHouse {
   entrance: string;
 }
 
-export interface Building extends BaseAddress {
+export interface Building {
   floor: number;
   apartment: number;
 }
-export interface Synagogue extends BaseAddress {
+export interface Synagogue {
   prayers: Prayers;
 }
 

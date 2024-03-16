@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Icon } from "@rneui/themed";
-import AddressCard from "../AddressCard";
+// import AddressCard from "../AddressCard";
 import useCurrentDateTime from "../../../state/hooks/useCurrentDateTime";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { BaseAddress } from "../../../types/GeneralTypes";
@@ -65,7 +65,9 @@ export const TimelineItem = (props: TimelineItemProps) => {
       </View>
 
       {!collapsed && (
-        <AddressCard address={props.address} date={date} time={time} />
+        <></>
+        // ToDo: Refactor. wait to Rotem ui
+        // <AddressCard address={props.address} date={date} time={time} />
       )}
     </View>
   );

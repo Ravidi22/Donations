@@ -10,13 +10,13 @@ import { ButtonGroup } from "@rneui/themed";
 import { TextInput } from "react-native-paper";
 import TimeView from "../../../component/map/TimeAndDate";
 import useCurrentDateTime from "../../../state/hooks/useCurrentDateTime";
-import {
-  Building,
-  LocationType,
-  PrayersType,
-  PrivateHouse,
-  Synagogue,
-} from "../../../types/LocationsUtils";
+// import {
+//   Building,
+//   LocationType,
+//   PrayersType,
+//   PrivateHouse,
+//   Synagogue,
+// } from "../../../types/LocationsUtils";
 import PrivateHouseInput from "../../../component/map/input/PrivateHouseInput";
 import SynagogueInput from "../../../component/map/input/SynagogueInput";
 import BuildingInput from "../../../component/map/input/BuildingInput";
@@ -32,89 +32,89 @@ const NewAddressScreen = ({ navigation }) => {
 
   const [selectedIndex, setSelectedIndex] = useState<number>(2);
 
-  const [baseLocation, setBaseLocation] = useState({
-    name: "",
-    city: "",
-    address: "",
-    donation: 0,
-    avgDonations: 0,
-    note: "",
-    isVisited: false,
-  });
+  // const [baseLocation, setBaseLocation] = useState({
+  //   name: "",
+  //   city: "",
+  //   address: "",
+  //   donation: 0,
+  //   avgDonations: 0,
+  //   note: "",
+  //   isVisited: false,
+  // });
 
-  const [privateHouseDetails, setPrivateHouseDetails] = useState({
-    ...baseLocation,
-    entrance: "",
-  });
+  // const [privateHouseDetails, setPrivateHouseDetails] = useState({
+  //   ...baseLocation,
+  //   entrance: "",
+  // });
 
-  const [buildingDetails, setBuildingDetails] = useState({
-    ...baseLocation,
-    floor: 0,
-    apartment: 0,
-  });
+  // const [buildingDetails, setBuildingDetails] = useState({
+  //   ...baseLocation,
+  //   floor: 0,
+  //   apartment: 0,
+  // });
 
-  const [synagogueDetails, setSynagogueDetails] = useState({
-    ...baseLocation,
-    prayers: { morning: [], afternoon: [], evening: [] },
-  });
+  // const [synagogueDetails, setSynagogueDetails] = useState({
+  //   ...baseLocation,
+  //   prayers: { morning: [], afternoon: [], evening: [] },
+  // });
 
-  const handleBaseInputChange = (field, value) => {
-    setBaseLocation((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
-  };
+  // const handleBaseInputChange = (field, value) => {
+  //   setBaseLocation((prev) => ({
+  //     ...prev,
+  //     [field]: value,
+  //   }));
+  // };
 
-  const handlePrivateHouseInputChange = (field, value) => {
-    setPrivateHouseDetails((prev) => ({
-      ...prev,
-      [field]: value,
-      ...baseLocation,
-    }));
-  };
+  // const handlePrivateHouseInputChange = (field, value) => {
+  //   setPrivateHouseDetails((prev) => ({
+  //     ...prev,
+  //     [field]: value,
+  //     ...baseLocation,
+  //   }));
+  // };
 
-  const handleBuildingInputChange = (field, value) => {
-    setBuildingDetails((prev) => ({
-      ...prev,
-      [field]: value,
-      ...baseLocation,
-    }));
-  };
+  // const handleBuildingInputChange = (field, value) => {
+  //   setBuildingDetails((prev) => ({
+  //     ...prev,
+  //     [field]: value,
+  //     ...baseLocation,
+  //   }));
+  // };
 
-  const handlePrayersInputChange = (
-    name: string,
-    value: string | number | string[],
-    field: PrayersType
-  ) => {
-    setSynagogueDetails((prev) => {
-      if (field) {
-        return {
-          ...prev,
-          prayers: {
-            ...prev.prayers,
-            [field]: [...prev.prayers[field], value],
-            ...baseLocation,
-          },
-        };
-      }
+  // const handlePrayersInputChange = (
+  //   name: string,
+  //   value: string | number | string[],
+  //   field: PrayersType
+  // ) => {
+  //   setSynagogueDetails((prev) => {
+  //     if (field) {
+  //       return {
+  //         ...prev,
+  //         prayers: {
+  //           ...prev.prayers,
+  //           [field]: [...prev.prayers[field], value],
+  //           ...baseLocation,
+  //         },
+  //       };
+  //     }
 
-      return { ...prev, [name]: value };
-    });
-  };
+  //     return { ...prev, [name]: value };
+  //   });
+  // };
 
-  const handleDeletePrayerTime = (field: PrayersType, index: number) => {
-    setSynagogueDetails((prev) => ({
-      ...prev,
-      prayers: {
-        ...prev.prayers,
-        [field]: prev.prayers[field].filter((_, i) => i !== index),
-        ...baseLocation,
-      },
-    }));
-  };
-  const isAddressValid = (newAddress): boolean => {
-    return true;
-  };
+  // const handleDeletePrayerTime = (field: PrayersType, index: number) => {
+  //   setSynagogueDetails((prev) => ({
+  //     ...prev,
+  //     prayers: {
+  //       ...prev.prayers,
+  //       [field]: prev.prayers[field].filter((_, i) => i !== index),
+  //       ...baseLocation,
+  //     },
+  //   }));
+  // };
+  // const isAddressValid = (newAddress): boolean => {
+  //   return true;
+  // };
 
   // const getNewAddress = (): LocationType => {
   //   if (selectedIndex === 0) {
@@ -147,76 +147,7 @@ const NewAddressScreen = ({ navigation }) => {
 
         <View style={styles.innerContainer}>
           <TimeView date={date} time={time} />
-          <TextInput
-            mode="outlined"
-            label={"שם מלא"}
-            value={baseLocation.name.toString()}
-            onChangeText={(text) => handleBaseInputChange("name", text)}
-            style={{ direction: "rtl", textAlign: "right" }}
-          />
-
-          <TextInput
-            mode="outlined"
-            label={"כתובת"}
-            value={baseLocation.address.toString()}
-            onChangeText={(text) => handleBaseInputChange("address", text)}
-            style={{ direction: "rtl", textAlign: "right" }}
-          />
-          <ButtonGroup
-            buttons={["בית כנסת", "בניין", "קרקע"]}
-            selectedIndex={selectedIndex}
-            onPress={(value) => setSelectedIndex(value)}
-            containerStyle={{ marginVertical: 20, borderRadius: 20 }}
-          />
-          {selectedIndex === 0 && (
-            <SynagogueInput
-              location={synagogueDetails as Synagogue}
-              handleInputChange={handlePrayersInputChange}
-              handleDeletePrayerTime={handleDeletePrayerTime}
-            />
-          )}
-          {selectedIndex === 1 && (
-            <BuildingInput
-              location={buildingDetails as Building}
-              handleInputChange={handleBuildingInputChange}
-            />
-          )}
-          {selectedIndex === 2 && (
-            <PrivateHouseInput
-              location={privateHouseDetails as PrivateHouse}
-              handleInputChange={handlePrivateHouseInputChange}
-            />
-          )}
-
-          <TextInput
-            mode="outlined"
-            label={"סכום תרומה"}
-            value={baseLocation.donation.toString()}
-            onChangeText={(text) => handleBaseInputChange("donation", text)}
-            keyboardType="numeric"
-            style={{
-              direction: "rtl",
-              textAlign: "right",
-              marginVertical: 5,
-            }}
-          />
-          <TextInput
-            mode="outlined"
-            label={"הערה"}
-            value={baseLocation.note.toString()}
-            onChangeText={(text) => handleBaseInputChange("note", text)}
-            style={{
-              direction: "rtl",
-              textAlign: "right",
-              marginVertical: 5,
-            }}
-          />
-          <TouchableOpacity
-            style={styles.btn}
-            onPress={() => handleAddAddress()}
-          >
-            <Text style={styles.btnText}>הוסף</Text>
-          </TouchableOpacity>
+          {/* ToDo: add the sections by Rotem decision */}
         </View>
       </View>
     </ScrollView>
